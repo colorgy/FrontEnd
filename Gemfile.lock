@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     colorgy_frontend (0.0.1)
+      compass
       jquery-rails (>= 3.1.2)
       modernizr-rails
 
@@ -158,10 +159,12 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.7)
   colorgy_frontend!
+  jquery-rails
   listen (~> 2.7.12)
   middleman (~> 3.3.7)
   middleman-kss (~> 0.3.1)
   middleman-livereload (~> 3.1.0)
+  modernizr-rails
   rake (~> 10.0)
   tzinfo-data
   wdm (~> 0.1.0)
