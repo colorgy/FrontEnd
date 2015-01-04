@@ -1,3 +1,10 @@
+##
+# Middleman
+##
+
+activate :directory_indexes
+activate :livereload
+
 ###
 # Compass
 ###
@@ -65,8 +72,15 @@ configure :build do
   # activate :asset_hash
 
   # Use relative URLs
-  # activate :relative_assets
+  activate :relative_assets
 
   # Or use a different image path
   # set :http_prefix, "/Content/images/"
+end
+
+after_configuration do
+  sprockets.append_path "#{root}/modules"
+  # sprockets.append_path "#{root}/vendor/assets"
+  # sprockets.append_path "#{root}/app/assets"
+  puts "#{root}"
 end

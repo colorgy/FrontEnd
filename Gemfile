@@ -2,6 +2,8 @@
 # the following line to use "http://" instead
 source 'https://rubygems.org'
 
+gemspec
+
 gem "middleman", "~>3.3.7"
 
 # Live-reloading plugin
@@ -12,3 +14,5 @@ gem "wdm", "~> 0.1.0", :platforms => [:mswin, :mingw]
 
 # Windows does not come with time zone data
 gem "tzinfo-data", platforms: [:mswin, :mingw]
+
+gem 'listen', '~>2.7.12'
