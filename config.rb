@@ -3,7 +3,30 @@
 ##
 
 activate :directory_indexes
-activate :livereload
+activate :livereload, port: "35728"
+set :file_watcher_ignore, [/^bin(\/|$)/,
+                           /^\.bundle(\/|$)/,
+                           /^node_modules(\/|$)/,
+                           /^\.sass-cache(\/|$)/,
+                           /^\.cache(\/|$)/,
+                           /^\.git(\/|$)/,
+                           /^\.gitignore$/,
+                           /\.DS_Store/,
+                           /^\.rbenv-.*$/,
+                           /^Gemfile$/,
+                           /^Gemfile\.lock$/,
+                           /~$/,
+                           /(^|\/)\.?#/,
+                           /^tmp\//,
+                           /^build(\/|$)/]
+
+##
+# KSS
+##
+
+set :markdown_engine, :redcarpet
+activate :kss,
+         kss_dir: "../vendor/assets/stylesheets"
 
 ###
 # Compass
@@ -82,5 +105,4 @@ after_configuration do
   sprockets.append_path "#{root}/modules"
   # sprockets.append_path "#{root}/vendor/assets"
   # sprockets.append_path "#{root}/app/assets"
-  puts "#{root}"
 end

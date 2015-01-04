@@ -1,0 +1,53 @@
+@import "compass/css3";
+
+
+// Some buttons for demo.
+//
+// :hover                - Yes, you can press this button
+// :active, .act         - You are pushing me.
+// :disabled, .disabled  - Don't touch this
+//
+// Styleguide 1.1.
+[type=submit], .btn {
+    background: #fafafa;
+    @include background-image(linear-gradient(top, #fff, #e6e6e6));
+    border: 1em/(16*0.875) solid #bdbdbd;
+    border-color: #cecece #bdbdbd #aeaeae;
+    border-radius: 3px;
+    color: #707070;
+    cursor: pointer;
+
+    display: inline-block;
+    font-family: inherit;
+    font-size: 0.875em;
+    line-height: 24px;
+    font-weight: 700;
+    margin: 0 0 24px;
+    padding: 6px 1.25em;
+    text-decoration:none;
+    text-shadow: 0 1px 0 #fff;
+    -webkit-appearance: none;
+
+    @include transition(border 125ms, box-shadow 125ms);
+
+    &:hover, &:active, &.act {
+        border-color:#a0a0a0;
+        color:#444;
+        @include box-shadow(0 1px 2px rgba(0,0,0, 0.2));
+    }
+    &:active, &.act {
+        background: #ddd;
+        @include background-image(linear-gradient(top, #d1d1d1, #f1f1f1));
+        @include box-shadow(inset 0 -1px 4px rgba(0,0,0, 0.15), inset 0 2px 1px rgba(0,0,0, 0.15));
+    }
+
+    &:disabled, &[disabled=disabled], &.disabled,
+    &:disabled:hover, &[disabled=disabled]:hover, &.disabled:hover,
+    &:disabled:active, &[disabled=disabled]:active, &.disabled:active {
+        background:#e2e2e2;
+        border-color:#cecece #bdbdbd #aeaeae;
+        cursor:default;
+        color:#888;
+        @include box-shadow(none);
+    }
+}

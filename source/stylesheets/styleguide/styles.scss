@@ -1,0 +1,278 @@
+@import "compass/css3";
+@import "reset";
+@import "prism";
+@import "theme";
+
+// Pixels to em
+@function em($pixels, $context: 16) {
+	@return ($pixels/$context)+0em;
+}
+
+// Variables
+$max-width: em(1000);
+
+@mixin big-screen() {
+	@media screen and (min-width: $max-width) { @content; }
+}
+
+@mixin tablet() {
+	@media screen and (min-width: 800px) { @content; }
+}
+
+
+/* Base */
+
+body {
+	background: #eee;
+	font: 75%/1.5 $font-body;
+	padding-top: em(72);  // create some space for the fixed header
+
+	@include tablet {
+		font-size: 87.5%;
+	}
+
+	@include big-screen {
+		font-size: 100%;
+	}
+}
+
+.dgl-wrapper {
+	margin: 0 auto;
+	max-width: $max-width;
+	padding: 0 10px;
+	position: relative;
+}
+
+.clearfix {
+	*zoom: 1;
+
+	&:before, &:after {
+		content: "";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+
+/* Typography */
+
+h1 {
+	font-size: 2.25em;
+	margin-bottom: em(24, 2.25*16);
+}
+
+h2 {
+	border-bottom: 1px solid $color-accent;
+	font-size: 1.5em;
+	margin-bottom: em(24, 1.5*16);
+}
+
+h3 {
+	font-size: 1.25em;
+	margin-bottom: em(24, 1.25*16);
+}
+
+
+/* Header */
+
+.dgl-header {
+	@include background($header-background);
+	color: #fff;
+	padding: em(12);
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 3;
+}
+
+.dgl-logo {
+	float: left;
+}
+
+.dgl-nav {
+	ul {
+		list-style: none;
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	li {
+		display: inline;
+		margin-right: em(12);
+	}
+
+	a {
+		color: $header-link-color;
+		display: inline-block;
+		text-decoration: none;
+
+		&.selected, &:hover {
+			color: $header-active-link-color;
+		}
+	}
+}
+
+
+/* Main */
+
+.dgl-row {
+	position: relative;
+	@extend .clearfix;
+}
+
+.dgl-main {
+	background: #fff;
+	padding: em(24);
+
+	@include tablet {
+		float: right;
+		width: 70%;
+	}
+
+	> {
+		p, ul, ol {
+			margin-bottom: em(24);
+		}
+	}
+}
+
+.dgl-main, .dgl-sidebar {
+	@include box-shadow(0 1px 4px rgba(0, 0, 0, 0.065));
+}
+
+
+/* Side panel */
+
+.dgl-sidebar {
+	margin-bottom: em(24);
+
+	@include tablet {
+		float: left;
+		position: fixed;
+		width: em(200);
+	}
+
+	@include big-screen {
+		width: em(220);
+	}
+
+	ul {
+		background-color: #fff;
+		padding: 0;
+		@include background-clip(padding-box);
+	}
+
+	li {
+		line-height: em(20);
+		list-style: none;
+	}
+
+	a {
+		border: 1px solid #e5e5e5;
+		color: $color-link;
+		display: block;
+		margin-bottom: -1px;
+		padding: em(8) em(14);
+		text-decoration: none;
+		width: 100%;
+		@include box-sizing(border-box);
+	}
+}
+
+
+/* Page content */
+
+.dgl-main > p > img {
+	background: #fff;
+	border: 1px solid #f1f1f1;
+	padding: em(12);
+	@include box-shadow(0 2px 12px rgba(0, 0, 0, 0.1));
+	@include box-sizing(border-box);
+}
+
+
+/* Styleguide block */
+
+.styleguide-example {
+	background: rgba(255, 255, 255, 0.5);
+	border: 1px solid #ddd;
+	margin: 15px 0;
+
+	> h3 {
+		background: #333;
+		border-top: 1px solid #000;
+		color: #fff;
+		font-size: 12px;
+		text-transform: uppercase;
+		margin: 0;
+		padding: 5px;
+
+		em {
+			float: right;
+			text-transform: none;
+			font-style: normal;
+			font-weight: normal;
+			color: #999;
+		}
+	}
+
+	.styleguide-description {
+		background: #f1f1f1;
+		border-bottom: 1px solid #ddd;
+		font-size: em(14);
+		padding: em(12);
+
+		p:first-child {
+			margin-top: 0;
+		}
+
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.styleguide-element {
+		position: relative;
+		padding: em(12);
+	}
+
+	.styleguide-element + .styleguide-element {
+		border-top: 1px solid #eee;
+		margin-top: em(2);
+		padding-top: em(10);
+	}
+}
+  .styleguide-example .styleguide-element .styleguide-modifier-name {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 5px 8px;
+	font-size: 11px;
+	color: #999;
+	background: #f9f9f9;
+	border: 1px solid #eee;
+	border-top: none; }
+.styleguide-html {
+	border-top: 1px solid #dde7ea;
+	overflow: auto;
+
+	pre {
+		margin: 0;
+		font-size: em(14);
+		line-height: em(17.5);
+	}
+}
+  .styleguide-example ul.styleguide-modifiers {
+	margin: 0 0 0 10px; }
+	.styleguide-example ul.styleguide-modifiers li {
+	  list-style-type: none;
+	  margin-left: 0; }
+	.styleguide-example ul.styleguide-modifiers li strong {
+	  font-family: Monaco, monospace;
+	  font-size: 12px;
+	  font-weight: normal;
+	  color: #222; }

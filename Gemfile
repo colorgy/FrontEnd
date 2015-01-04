@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem "middleman", "~>3.3.7"
+gem "middleman-kss", "~>0.3.1"
 
 # Live-reloading plugin
 gem "middleman-livereload", "~> 3.1.0"

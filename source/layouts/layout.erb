@@ -1,19 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    
-    <!-- Always force latest IE rendering engine or request Chrome Frame -->
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    
-    <!-- Use title if it's in the page YAML frontmatter -->
-    <title><%= current_page.data.title || "The Middleman" %></title>
-    
-    <%= stylesheet_link_tag "normalize", "all" %>
-    <%= javascript_include_tag  "all" %>
+    <title><%= data.page.title || "Styleguide" %></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-title" content="Styleguide">
+    <meta name="author" content="Your Company Name">
+
+    <%= stylesheet_link_tag "all" %>
+    <%= javascript_include_tag "all" %>
   </head>
-  
-  <body class="<%= page_classes %>">
-    <%= yield %>
+  <body class="<%= page_classes %>" data-spy="scroll" data-target=".dgl-sidebar">
+    <header class="dgl-header">
+      <div class="dgl-wrapper">
+        <div class="dgl-logo">
+          Colorgy
+        </div>
+        <div class="dgl-nav">
+        </div>
+      </div>
+    </header>
+      <div class="dgl-wrapper">
+        <div class="dgl-row">
+          <div class="dgl-sidebar">
+            <ul>
+              <li><a href="#dummy_1">Dummy 1</a></li>
+              <li><a href="#dummy_2">Dummy 2</a></li>
+              <li><a href="#dummy_3">Dummy 3</a></li>
+            </ul>
+        </div>
+        <div class="dgl-main">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
