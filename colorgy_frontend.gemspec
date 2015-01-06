@@ -24,4 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "compass"
   spec.add_dependency "jquery-rails", ">= 3.1.2"
   spec.add_dependency "modernizr-rails"
+  spec.add_dependency "bourbon"
+  spec.add_dependency "neat"
+  spec.add_dependency "bootstrap-sass", "~> 3.3.1.0"
 end
