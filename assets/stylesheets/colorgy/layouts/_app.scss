@@ -1,53 +1,186 @@
-$app-nav-height: $site-banner-height * 0.8 !default;
+$app-menu-height: $site-banner-height * .8 !default;
+$logo-width: 45px;
 
 .l-app {
 
-	> *,
-	> .app,
 	> .site-banner {
+		@include z-index-of(site-banner);
 		@include set-pad(0 12px);
 		@include outer-container(1360px);
-		position: relative;
+	}
 
-		@include media($lsu) {
+	> .app {
+		@include set-pad(0);
+		@include outer-container(1360px);
+		position: relative;
+		border-right: 12px solid transparent;
+		border-left: 12px solid transparent;
+
+		> .app-logo {
+			@include z-index-of(app-logo);
+			position: relative;
+			height: $app-menu-height;
+			line-height: $app-menu-height;
+
+			> * {
+				@include z-index-of(app-logo);
+				position: relative;
+			}
+		}
+
+
+		> .app-menu {
+			@include z-index-of(app-menu-mobile);
+			@include position-sticky;
+			top: 0;
+			height: $app-menu-height;
+		}
+
+		> .app-nav {
+			@include z-index-of(app-nav);
+			position: relative;
+		}
+
+
+		> .site-nav {
+			@include z-index-of(site-nav);
+			position: fixed;
+		}
+	}
+
+	@include media($msd) {
+
+		> .site-banner {
+			position: fixed;
+			height: $app-menu-height;
+			width: 100%;
+
+			.site-banner-logo {
+				width: $logo-width;
+				overflow: hidden;
+
+				> * {
+					width: 9988%;
+				}
+			}
+		}
+
+		> .app {
+
+			> .app-logo {
+				position: fixed;
+				padding-left: $logo-width;
+			}
+
+
+			> .app-menu {
+				@include z-index-of(app-menu-mobile);
+				@include position-sticky;
+				display: none;
+				top: 0;
+				padding-left: $logo-width;
+			}
+
+			> .app-nav {
+				position: fixed;
+			}
+
+
+			> .site-nav {
+				position: absolute;
+			}
+
+			> .main {
+				@include span-columns(4);
+			}
+
+		}
+
+		> .app.has-app-menu {
+
+			> .app-logo {
+				position: relative;
+			}
+
+
+			> .app-menu {
+				position: relative;
+				@include position-sticky;
+				display: block;
+			}
+		}
+	}
+
+
+	@include media($msu) {
+
+		> .site-banner {
+			position: relative;
+			height: $site-banner-height;
+		}
+
+		> .app {
 
 			> .app-logo {
 				@include span-columns(2);
-				@include full-width-background($blue);
-				height: $app-nav-height;
-				text-align: center;
+				@include full-width-background($primary-color);
+				padding-left: 0;
+
+				&::before {
+					right: 0;
+				}
 
 				&, > * {
 					@include z-index-of(app-logo);
-					color: foreground-color($blue);
-					line-height: $app-nav-height;
+					color: foreground-color($primary-color);
+					text-align: center;
 				}
 
 				& {
 					@include position-sticky;
 					top: 0;
 				}
+			}
 
-				&::before {
-					right: 0;
+			> .app-menu {
+				@include z-index-of(app-menu);
+				@include full-width-background($base-background-color);
+				@include span-columns(10);
+				@include omega;
+				& {
+					@include position-sticky;
 				}
+				top: 0;
+				height: $app-menu-height;
+				display: block;
+			}
+		}
+	}
+
+
+	@include media($lsu) {
+
+
+		> .app {
+			> .app-logo {
+				@include span-columns(2);
+				text-align: center;
 			}
 
 			> .app-nav {
 				@include span-columns(2);
-				@include position-sticky;
-				position: absolute;
-				top: $app-nav-height;
+
+				top: $app-menu-height;
 				margin-bottom: -9999px;
 			}
 
 			> .app-menu {
-				@include full-width-background($base-background-color);
 				@include span-columns(10);
 				@include omega;
-				& { @include position-sticky; }
-				top: 0;
-				height: $app-nav-height;
+			}
+
+			> .site-nav {
+
 			}
 
 			> .main {
@@ -58,8 +191,6 @@ $app-nav-height: $site-banner-height * 0.8 !default;
 					@include span-columns(8);
 				}
 			}
-
 		}
 	}
 }
-

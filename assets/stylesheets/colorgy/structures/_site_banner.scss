@@ -5,15 +5,22 @@
 
 	> * {
 		float: right;
+		height: 100%;
 	}
 
 	h1 {
-		@include replace-text($site-logo);
-		@include background-size(contain);
 		width: 240px;
 		max-width: 50%;
-		padding: 7px 0;
+		padding: 8px 0;
 		float: left;
-		background-position: 0 50%;
+
+		a {
+			@include replace-text($site-logo);
+			@include background-size(contain);
+			display: block;
+			width: 100%;
+			height: 100%;
+			background-position: 0 50%;
+		}
 	}
 }

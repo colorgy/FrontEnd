@@ -6,8 +6,4 @@ $site-banner-height: 64px !default;
 	position: relative;
 	height: $site-banner-height;
 	border-bottom: $base-border;
-
-	> * {
-		height: 100%;
-	}
 }

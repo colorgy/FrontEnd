@@ -7,11 +7,13 @@ $grid-columns: 4;
 // $max-width: em(1088);
 
 // Breakpoints
-$medium-screen: em(640);
+$medium-screen: em(700);
 $large-screen: em(1200);
 
+$medium-screen-down: new-breakpoint(max-width ($medium-screen - 1) 4);
 $medium-screen-up: new-breakpoint(min-width $medium-screen 8);
 $large-screen-up: new-breakpoint(min-width $large-screen 12);
 
+$msd: $medium-screen-down;
 $msu: $medium-screen-up;
 $lsu: $large-screen-up;

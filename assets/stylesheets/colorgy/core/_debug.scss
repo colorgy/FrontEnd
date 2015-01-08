@@ -54,7 +54,7 @@ $grid-default-padding: 0 !default;
 
 @mixin visual-grid() {
 
-	position: relative;
+	// position: relative;
 
 	&::before {
 		@include grid-column-gradient(gradient-stops($grid-columns));

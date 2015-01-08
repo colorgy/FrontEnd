@@ -93,7 +93,7 @@
 // ----- z-index ----- //
 
 @mixin z-index-of($element, $elements: $z-index-elements, $base: 10) {
-	position: relative;
+	// position: relative;
 	$index: index($elements, $element);
 	$base-index: index($elements, base);
 	@if $base-index == false { $base-index: 0; }
@@ -124,16 +124,15 @@
 
 // ----- Full-width Background ----- //
 
-@mixin full-width-background($background) {
+@mixin full-width-background($background, $align: none, $z-index: -1) {
 
 	&,
 	> * {
-		@include z-index-of(base);
-		position: relative;
+		// @include z-index-of(base);
+		// position: relative;
 	}
 
 	&::before {
-		@include z-index-of(component-background);
 		content: '';
 		position: absolute;
 		top: 0;
@@ -145,6 +144,18 @@
 		width: auto;
 		height: auto;
 		background: $background;
+
+		@if type-of($z-index) == number {
+			z-index: $z-index;
+		} @else {
+			@include z-index-of($z-index);
+		}
+
+		@if $align == right {
+			right: 0;
+		} @else if $align == left {
+			left: 0;
+		}
 	}
 }
 
