@@ -1,0 +1,65 @@
+$app-nav-height: $site-banner-height * 0.8 !default;
+
+.l-app {
+
+	> *,
+	> .app,
+	> .site-banner {
+		@include set-pad(0 12px);
+		@include outer-container(1360px);
+		position: relative;
+
+		@include media($lsu) {
+
+			> .app-logo {
+				@include span-columns(2);
+				@include full-width-background($blue);
+				height: $app-nav-height;
+				text-align: center;
+
+				&, > * {
+					@include z-index-of(app-logo);
+					color: foreground-color($blue);
+					line-height: $app-nav-height;
+				}
+
+				& {
+					@include position-sticky;
+					top: 0;
+				}
+
+				&::before {
+					right: 0;
+				}
+			}
+
+			> .app-nav {
+				@include span-columns(2);
+				@include position-sticky;
+				position: absolute;
+				top: $app-nav-height;
+				margin-bottom: -9999px;
+			}
+
+			> .app-menu {
+				@include full-width-background($base-background-color);
+				@include span-columns(10);
+				@include omega;
+				& { @include position-sticky; }
+				top: 0;
+				height: $app-nav-height;
+			}
+
+			> .main {
+				@include shift(2);
+				@include span-columns(9);
+
+				&.with-sidebar {
+					@include span-columns(8);
+				}
+			}
+
+		}
+	}
+}
+

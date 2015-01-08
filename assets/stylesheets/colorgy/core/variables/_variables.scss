@@ -1,0 +1,16 @@
+@import "colors";
+@import "base";
+@import "grid";
+@import "components";
+
+$site-logo: "colorgy/logo.svg";
+
+$z-index-elements: background,
+                   shadow,
+                   container,
+                   component-background,
+                   base,
+                   component,
+                   component-content,
+                   app-logo,
+                   trigger;

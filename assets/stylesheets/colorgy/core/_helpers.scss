@@ -1,0 +1,223 @@
+// *************************************
+//
+//   Helpers
+//   -> Extends, Functions, Mixins, Animations
+//
+// *************************************
+
+// -------------------------------------
+//   Extends
+// -------------------------------------
+
+// ----- Debug ----- //
+
+%debug {
+	background-color: rgba(pink, .8) !important;
+}
+
+// ----- Ellipsis ----- //
+
+%ellipsis {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+// ----- Clearfix ----- //
+
+%group:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+// ----- Image Replacement ----- //
+
+%ir {
+	border: 0;
+	background-color: transparent;
+	overflow: hidden;
+
+	&:before {
+		content: "";
+		display: block;
+		width: 0;
+		height: 150%;
+	}
+}
+
+// -------------------------------------
+//   Functions
+// -------------------------------------
+
+// ----- strip units ----- //
+
+@function strip-units($number) {
+	@return $number / ($number * 0 + 1);
+}
+
+// ----- em ----- //
+
+@function em($target, $context: $base-font-size) {
+	@if $target == 0 {
+		@return 0;
+	} @else {
+		@return #{$target / $context}em;
+	}
+}
+
+// ----- rem ----- //
+
+@function rem($size) {
+	@return #{$size / $base-font-size}rem;
+}
+
+// ----- Foreground Color ----- //
+
+@import "compass/utilities/color/contrast";
+@function foreground-color($color) {
+	@return contrast-color($color, $base-dark-color, $base-light-color, 60%);
+}
+
+// ----- Vertical Rhythm ----- //
+
+@mixin rhythm-to($leader: 0, $padding-leader: 0, $padding-trailer: 0, $trailer: 0, $font-size: $base-font-size) {
+	@include adjust-font-size-to($font-size);
+	@include rhythm($leader, $padding-leader, $padding-trailer, $trailer, $font-size);
+}
+
+// -------------------------------------
+//   Mixins
+// -------------------------------------
+
+// ----- z-index ----- //
+
+@mixin z-index-of($element, $elements: $z-index-elements, $base: 10) {
+	position: relative;
+	$index: index($elements, $element);
+	$base-index: index($elements, base);
+	@if $base-index == false { $base-index: 0; }
+	@if $index == false {
+		@warn "Can't find item "#{$element}" in $z-index-elements, please choose one of: #{$elements}.";
+	} @else {
+		z-index: index($elements, $element) + $base - $base-index;
+	}
+}
+
+// ----- Respond-to ----- //
+
+@mixin respond-to($val, $query: min-width, $media: screen) {
+	@media #{$media} and ($query: $val) {
+		@content;
+	}
+}
+
+// ----- Position-Sticky ----- //
+
+@mixin position-sticky {
+	position: -webkit-sticky;
+	position: -moz-sticky;
+	position: -o-sticky;
+	position: -ms-sticky;
+	position: sticky;
+}
+
+// ----- Full-width Background ----- //
+
+@mixin full-width-background($background) {
+
+	&,
+	> * {
+		@include z-index-of(base);
+		position: relative;
+	}
+
+	&::before {
+		@include z-index-of(component-background);
+		content: '';
+		position: absolute;
+		top: 0;
+		right: -9999999px;
+		right: -100vw;
+		bottom: 0;
+		left: -9999999px;
+		left: -100vw;
+		width: auto;
+		height: auto;
+		background: $background;
+	}
+}
+
+// ----- Dummy Grid Mixin ----- //
+
+@mixin grid($col) {
+}
+
+// ----- Grid Mixin of Neat ----- //
+
+@mixin grid($local-grid-columns: $grid-columns, $local-column: $column, $local-gutter: $gutter) {
+	$default-grid-columns: $grid-columns;
+	$default-column: $column;
+	$default-gutter: $gutter;
+	$default-fg-column: $fg-column;
+	$default-fg-gutter: $fg-gutter;
+	$grid-columns: $local-grid-columns;
+	$column: $local-column;
+	$gutter: $local-gutter;
+	$fg-column: $local-column;
+	$fg-gutter: $local-gutter;
+	// $grid-columns: $local-grid-columns !global;
+	// $column: $local-column !global;
+	// $gutter: $local-gutter !global;
+	// $fg-column: $local-column !global;
+	// $fg-gutter: $local-gutter !global;
+
+	@include clearfix;
+
+	@content;
+
+	@if $debug == true {
+    	head:hover ~ body &::before {
+    		@include grid-column-gradient(gradient-stops($local-grid-columns));
+    		content: "";
+    		display: inline-block;
+    		position: absolute;
+    		right: 0;
+    		left: 0;
+    		width: 100%;
+    		height: 100%;
+    		margin: 0 auto;
+    		opacity: $visual-grid-opacity;
+    		pointer-events: none;
+    	}
+	}
+
+
+	$grid-columns: $default-grid-columns;
+	$column: $default-column;
+	$gutter: $default-gutter;
+	$fg-column: $default-fg-column;
+	$fg-gutter: $default-fg-gutter;
+
+	// for sass 3.3+
+	// $grid-columns: $default-grid-columns !global;
+	// $column: $default-column !global;
+	// $gutter: $default-gutter !global;
+	// $fg-column: $default-fg-column !global;
+	// $fg-gutter: $default-fg-gutter !global;
+}
+
+$grid-default-padding: default !default;
+@mixin set-pad($padding: flex-gutter()) {
+	$padding-list: null;
+	@each $value in $padding {
+		$value: if($value == 'default', flex-gutter(), $value);
+		$padding-list: join($padding-list, $value);
+	}
+	padding: $padding-list;
+
+	$grid-default-padding: $padding-list;
+
+	// for sass 3.3+
+	// $grid-default-padding: $padding-list !global;
+}

@@ -1,0 +1,19 @@
+@import "compass/typography/text/replacement";
+@import "compass/css3";
+
+.site-banner {
+
+	> * {
+		float: right;
+	}
+
+	h1 {
+		@include replace-text($site-logo);
+		@include background-size(contain);
+		width: 240px;
+		max-width: 50%;
+		padding: 7px 0;
+		float: left;
+		background-position: 0 50%;
+	}
+}

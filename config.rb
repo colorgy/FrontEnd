@@ -26,7 +26,7 @@ set :file_watcher_ignore, [/^bin(\/|$)/,
 
 set :markdown_engine, :redcarpet
 activate :kss,
-         kss_dir: "../vendor/assets/stylesheets"
+         kss_dir: "../assets/stylesheets"
 
 ###
 # Compass
@@ -102,7 +102,8 @@ configure :build do
 end
 
 after_configuration do
-  sprockets.append_path "#{root}/modules"
+  # sprockets.append_path "#{root}/modules"
   # sprockets.append_path "#{root}/vendor/assets"
+  # sprockets.append_path "#{root}/vendor/assets/colorgy"
   # sprockets.append_path "#{root}/app/assets"
 end

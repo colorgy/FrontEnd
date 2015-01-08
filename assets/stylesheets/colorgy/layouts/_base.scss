@@ -1,0 +1,13 @@
+$site-banner-height: 64px !default;
+
+.site-banner {
+	@include outer-container;
+	@include full-width-background(darken($base-background-color, 3%));
+	position: relative;
+	height: $site-banner-height;
+	border-bottom: $base-border;
+
+	> * {
+		height: 100%;
+	}
+}

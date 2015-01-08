@@ -1,0 +1,17 @@
+@import "neat-helpers";
+
+// Grid Config
+$column: 7;
+$gutter: 1;
+$grid-columns: 4;
+// $max-width: em(1088);
+
+// Breakpoints
+$medium-screen: em(640);
+$large-screen: em(1200);
+
+$medium-screen-up: new-breakpoint(min-width $medium-screen 8);
+$large-screen-up: new-breakpoint(min-width $large-screen 12);
+
+$msu: $medium-screen-up;
+$lsu: $large-screen-up;

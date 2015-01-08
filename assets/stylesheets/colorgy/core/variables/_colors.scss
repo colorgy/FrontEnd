@@ -1,0 +1,53 @@
+// -------------------------------------
+//   Colors
+// -------------------------------------
+
+// ----- Palette ----- //
+
+$white: #fff;
+$black: #111;
+$blue: #477dca;
+$dark-gray: #333;
+$medium-gray: #999;
+$light-gray: #ddd;
+$light-red: #fbe3e4;
+$light-yellow: #fff6bf;
+$light-green: #e6efc2;
+$red: #f44336;
+$green: #2e7b32;
+$yellow: #f9a825;
+
+// ----- Base ----- //
+
+$base-dark-color: $black;
+$base-light-color: $white;
+$body-background-color: darken($base-light-color, 12%);
+
+// Background Color
+$base-background-color: $base-light-color;
+
+// Font Colors
+$base-font-color: $dark-gray;
+$base-accent-color: $blue;
+
+// Link Colors
+$base-link-color: $base-accent-color;
+$hover-link-color: darken($base-accent-color, 15);
+$base-button-color: $base-link-color;
+$hover-button-color: $hover-link-color;
+
+// Border color
+$base-border-color: $light-gray;
+$base-border: 1px solid $base-border-color;
+
+// ----- Situational ----- //
+
+$primary-color: $blue;
+$info-color: $blue;
+$success-color: $green;
+$warning-color: $yellow;
+$alert-color: $yellow;
+$error-color: $red;
+$danger-color: $red;
+$notice-color: $blue;
+$authorize-color: $blue;

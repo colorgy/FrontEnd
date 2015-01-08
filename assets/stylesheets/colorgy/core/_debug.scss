@@ -1,0 +1,96 @@
+$debug: true !default;
+
+@if $debug == true {
+
+	// debug toggle
+
+	head {
+		display: block;
+		position: fixed;
+		z-index: 9999;
+		right: 10px;
+		bottom: 10px;
+		width: 40px;
+		height: 40px;
+		background-color: #fff;
+		color: #333;
+		line-height: 24px;
+		text-align: center;
+		opacity: .36;
+	}
+
+	head::before {
+		content: "‖‖";
+		display: block;
+		padding: 8px 6px;
+		padding-right: 16px;
+		font-family: sans-serif;
+		font-size: 16px;
+		font-weight: bold;
+		letter-spacing: -10px;
+	}
+
+	head:hover {
+		opacity: .7;
+	}
+
+	head:hover::before {
+		color: #a00;
+	}
+
+	// debug!
+
+	head:hover ~ body {
+		// ...
+	}
+}
+
+
+// Neat
+
+$visual-grid-color: #0086b3;
+$visual-grid-opacity: .2;
+$grid-default-padding: 0 !default;
+
+@mixin visual-grid() {
+
+	position: relative;
+
+	&::before {
+		@include grid-column-gradient(gradient-stops($grid-columns));
+		content: "" !important;
+		display: inline-block !important;
+		position: absolute !important;
+		z-index: 9999 !important;
+		top: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		left: 0 !important;
+		width: auto !important;
+		height: auto !important;
+		margin: $grid-default-padding !important;
+		opacity: $visual-grid-opacity !important;
+		pointer-events: none !important;
+
+		@each $breakpoint in $visual-grid-breakpoints {
+			@if $breakpoint {
+				@include media($breakpoint) {
+					@include grid-column-gradient(gradient-stops($grid-columns));
+				}
+			}
+		}
+	}
+}
+
+@mixin outer-container($local-max-width: $max-width) {
+  @include clearfix;
+  max-width: $local-max-width;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+  @if $debug == true {
+    head:hover ~ body & { @include visual-grid; }
+    head:hover ~ & { @include visual-grid; }
+  }
+}

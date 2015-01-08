@@ -1,0 +1,19 @@
+// Use the button classes on an <a>, <button>, or <input> element.
+//
+// :hover                - On mouse hovered.
+// :active, .active      - Active state.
+// :disabled, .disabled  - Disabled state.
+// .btn-lg - Large button.
+// .btn-sm - Small button.
+// .btn-xs - Tiny button.
+// .btn-block - Block level buttons, span the full width of a parent.
+//
+// Styleguide 2.1.
+
+@import "bootstrap/buttons";
+
+.btn {
+	@extend .btn-default;
+	@extend %button;
+	font-weight: bold;
+}
