@@ -78,16 +78,8 @@ $logo-width: 45px;
 				@include position-sticky;
 				display: none;
 				top: 0;
+				left: 0 !important;
 				padding-left: $logo-width;
-			}
-
-			> .app-nav {
-				position: fixed;
-			}
-
-
-			> .site-nav {
-				position: absolute;
 			}
 
 			> .main {
@@ -192,5 +184,23 @@ $logo-width: 45px;
 				}
 			}
 		}
+	}
+}
+
+@include media($msd) {
+
+	#wrapper {
+		position: relative;
+		z-index: 3;
+	}
+
+	#app-nav {
+		position: fixed;
+		z-index: 2;
+	}
+
+	#site-nav {
+		position: fixed;
+		z-index: 1;
 	}
 }

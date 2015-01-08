@@ -9,8 +9,10 @@
     <%= stylesheet_link_tag :all %>
     <%= javascript_include_tag :modernizr %>
   </head>
-  <body class="<%= page_classes %> <%= current_page.data.page_classes %>">
+  <body class="<%= page_classes %>">
+    <div class="wrapper <%= current_page.data.page_classes %>" id="wrapper">
 <%= yield %>
+    </div>
     <%= javascript_include_tag :all %>
   </body>
 </html>

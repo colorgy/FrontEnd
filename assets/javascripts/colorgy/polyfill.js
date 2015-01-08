@@ -1,6 +1,6 @@
 //= require ./vendor/positionsticky
 //= require ./vendor/stickyfill
-//= require ./css_polyfills/full_width_bg
+//= require_directory ./polyfills
 
 (function () {
   if (!Modernizr.csspositionsticky) {
@@ -12,7 +12,7 @@
 
   $(window).resize(function() {
     fullWidthBackground();
-    $('.js-sticky').Stickyfill();
+    // $('.js-sticky').Stickyfill();
     // $('.app-nav.js-sticky ~ div').remove();
   });
 })();
