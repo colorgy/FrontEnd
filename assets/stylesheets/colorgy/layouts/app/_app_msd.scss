@@ -44,51 +44,46 @@ $mobile-nav-width: 230px;
 				@include span-columns(4);
 			}
 
-			> .app-nav {
-				@include z-index-of(app-nav-mobile);
+			> .app-nav,
+			> .site-nav {
+				z-index: 0;
 				@include translateX(0);
 				@include transition-property(transform);
 				@include transition-duration(.32s);
 				position: fixed !important;
 				top: 0 !important;
-				left: - $mobile-nav-width * 10 !important;
-				width: $mobile-nav-width * 10 !important;
 				height: 100% !important;
-				padding-left: $mobile-nav-width * 9;
-				@include debug(black);
-
-				body.is-app-nav-active & {
-					@include translateX($mobile-nav-width);
-				}
 
 				& ~ div:not([class]) {
 					display: none;
 				}
 			}
 
+			> .app-nav {
+				@include z-index-of(app-nav-mobile);
+				left: - $mobile-nav-width * 1.86 !important;
+				width: $mobile-nav-width * 1.86 !important;
+				padding-left: $mobile-nav-width * (1.86 - 1);
+				@include debug(black);
+
+				body.is-app-nav-active & {
+					@include translateX($mobile-nav-width);
+				}
+			}
+
 			> .site-nav {
 				@include z-index-of(site-nav-mobile);
-				@include translateX(0);
-				@include transition-property(transform);
-				@include transition-duration(.32s);
-				position: fixed !important;
-				top: 0 !important;
-				left: - $mobile-nav-width * 10 !important;
-				width: $mobile-nav-width * 10 !important;
-				height: 100% !important;
-				padding-left: $mobile-nav-width * 9;
+				left: - ($mobile-nav-width - 8) * 1.86 !important;
+				width: ($mobile-nav-width - 8) * 1.86 !important;
+				padding-left: ($mobile-nav-width - 8) * (1.86 - 1);
 				@include debug(orange);
 
 				body.is-app-nav-active & {
 					@include translateX(4px);
 				}
 
-				body.is-site-nav-active & {
-					@include translateX($mobile-nav-width);
-				}
-
-				& ~ div:not([class]) {
-					display: none;
+				body.is-app-nav-active.is-site-nav-active & {
+					@include translateX($mobile-nav-width - 8);
 				}
 			}
 		}
@@ -111,7 +106,7 @@ $mobile-nav-width: 230px;
 @include media($msd) {
 
 	#app-nav-touch-trigger {
-		@include z-index-of(trigger);
+		@include z-index-of(touch-trigger);
 		display: block;
 		position: fixed;
 		top: 0;
@@ -120,12 +115,13 @@ $mobile-nav-width: 230px;
 		height: 100%;
 
 		body.is-app-nav-active & {
+			left: $mobile-nav-width - 12;
 			width: 100%;
 		}
 	}
 
 	#site-nav-touch-trigger {
-		@include z-index-of(trigger);
+		@include z-index-of(touch-trigger);
 		display: block;
 		position: fixed;
 		top: 0;
@@ -137,7 +133,8 @@ $mobile-nav-width: 230px;
 			width: 32px;
 		}
 
-		body.is-site-nav-active & {
+		body.is-app-nav-active.is-site-nav-active & {
+			left: $mobile-nav-width - 12;
 			width: 100%;
 		}
 	}
