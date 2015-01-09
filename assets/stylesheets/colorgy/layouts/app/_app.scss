@@ -1,0 +1,61 @@
+// *************************************
+//
+//   Application Layout
+//   -> Default Page Template
+//
+// *************************************
+
+$app-menu-height: $site-banner-height * .8 !default;
+$logo-width: 45px;
+
+.l-app {
+
+	> .site-banner {
+		@include z-index-of(site-banner);
+		@include set-pad(0 12px);
+		@include outer-container(1360px);
+	}
+
+	> .app {
+		@include set-pad(0);
+		@include outer-container(1360px);
+		position: relative;
+		border-right: 12px solid transparent;
+		border-left: 12px solid transparent;
+
+		> .app-logo {
+			@include z-index-of(app-logo);
+			position: relative;
+			height: $app-menu-height;
+			line-height: $app-menu-height;
+
+			> * {
+				@include z-index-of(app-logo);
+				position: relative;
+			}
+		}
+
+
+		> .app-menu {
+			@include z-index-of(app-menu-mobile);
+			@include position-sticky;
+			top: 0;
+			height: $app-menu-height;
+		}
+
+		> .app-nav {
+			@include z-index-of(app-nav);
+			position: relative;
+		}
+
+
+		> .site-nav {
+			@include z-index-of(site-nav);
+			position: fixed;
+		}
+	}
+}
+
+@import "app_msd";
+@import "app_msu";
+@import "app_lsu";

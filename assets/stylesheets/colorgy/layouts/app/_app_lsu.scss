@@ -1,0 +1,42 @@
+// -------------------------------------
+//   Respond for Large Screen Up
+// -------------------------------------
+
+.l-app {
+
+	@include media($lsu) {
+
+
+		> .app {
+			> .app-logo {
+				@include span-columns(2);
+				text-align: center;
+			}
+
+			> .app-nav {
+				@include span-columns(2);
+
+				top: $app-menu-height;
+				margin-bottom: -9999px;
+			}
+
+			> .app-menu {
+				@include span-columns(10);
+				@include omega;
+			}
+
+			> .site-nav {
+
+			}
+
+			> .main {
+				@include shift(2);
+				@include span-columns(9);
+
+				&.with-sidebar {
+					@include span-columns(8);
+				}
+			}
+		}
+	}
+}

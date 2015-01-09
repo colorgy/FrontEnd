@@ -1,0 +1,78 @@
+// -------------------------------------
+//   Respond for Medium Screen Down
+// -------------------------------------
+
+$mobile-nav-width: 230px;
+
+.l-app {
+
+	@include media($msd) {
+
+		> .site-banner {
+			position: fixed;
+			height: $app-menu-height;
+			width: 100%;
+
+			.site-banner-logo {
+				width: $logo-width;
+				overflow: hidden;
+
+				> * {
+					width: 9988%;
+				}
+			}
+		}
+
+		> .app {
+
+			> .app-logo {
+				position: fixed;
+				padding-left: $logo-width;
+			}
+
+			> .app-menu {
+				@include z-index-of(app-menu-mobile);
+				@include position-sticky;
+				display: none;
+				top: 0;
+				padding-left: $logo-width;
+			}
+
+			> .main {
+				@include span-columns(4);
+			}
+
+
+			> .app-nav {
+				@include translateX(0);
+				position: fixed !important;
+				top: 0 !important;
+				left: - $mobile-nav-width !important;
+				width: $mobile-nav-width !important;
+				height: 100% !important;
+				@include debug;
+
+				&.is-active {
+					@include translateX($mobile-nav-width);
+				}
+
+				& ~ div:not([class]) {
+					display: none;
+				}
+			}
+		}
+
+		> .app.has-app-menu {
+
+			> .app-logo {
+				position: relative;
+			}
+
+			> .app-menu {
+				position: relative;
+				@include position-sticky;
+				display: block;
+			}
+		}
+	}
+}

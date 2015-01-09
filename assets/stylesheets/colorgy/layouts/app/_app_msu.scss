@@ -1,0 +1,51 @@
+// -------------------------------------
+//   Respond for Medium Screen Up
+// -------------------------------------
+
+.l-app {
+
+	@include media($msu) {
+
+		> .site-banner {
+			position: relative;
+			height: $site-banner-height;
+		}
+
+		> .app {
+
+			> .app-logo {
+				@include span-columns(2);
+				@include full-width-background($primary-color);
+				padding-left: 0;
+
+				&::before {
+					right: 0;
+				}
+
+				&, > * {
+					@include z-index-of(app-logo);
+					color: foreground-color($primary-color);
+					text-align: center;
+				}
+
+				& {
+					@include position-sticky;
+					top: 0;
+				}
+			}
+
+			> .app-menu {
+				@include z-index-of(app-menu);
+				@include full-width-background($base-background-color);
+				@include span-columns(10);
+				@include omega;
+				& {
+					@include position-sticky;
+				}
+				top: 0;
+				height: $app-menu-height;
+				display: block;
+			}
+		}
+	}
+}
