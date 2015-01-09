@@ -14,6 +14,8 @@ $logo-width: 45px;
 		@include z-index-of(site-banner);
 		@include set-pad(0 12px);
 		@include outer-container(1360px);
+		position: relative;
+		height: $site-banner-height;
 	}
 
 	> .app {

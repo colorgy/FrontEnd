@@ -18,6 +18,12 @@ $(window).resize ->
 onMobile = ->
   WINDOW_WIDTH < MEDIUM_SCREEN_SIZE
 
+onTablet = ->
+  WINDOW_WIDTH >= MEDIUM_SCREEN_SIZE and WINDOW_WIDTH < LARGE_SCREEN_SIZE
+
+onDesktop = ->
+  WINDOW_WIDTH >= LARGE_SCREEN_SIZE
+
 nullFunction = ->
   false
 
@@ -53,6 +59,18 @@ if $app.length
   if $app.children('.app-menu')?.children()?.children()?.length
     $app.addClass 'has-app-menu'
 
+  # add touch trigger
+  touchTrigger = document.getElementById('site-nav-touch-trigger')
+  touchTrigger?.parentNode?.removeChild(touchTrigger)
+  touchTrigger = document.createElement("div")
+  touchTrigger.id = "site-nav-touch-trigger"
+  document.body?.insertBefore(touchTrigger, document.body.firstChild)
+  touchTrigger = document.getElementById('app-nav-touch-trigger')
+  touchTrigger?.parentNode?.removeChild(touchTrigger)
+  touchTrigger = document.createElement("div")
+  touchTrigger.id = "app-nav-touch-trigger"
+  document.body?.insertBefore(touchTrigger, document.body.firstChild)
+
   # ----- Register Events ----- #
 
   $('.site-banner, .site-banner *').click ->
@@ -68,6 +86,9 @@ if $app.length
       $('body').toggleClass('is-app-nav-active')
       $('body').removeClass('is-site-nav-active')
       false
+    else if onTablet() and not $('body').hasClass('no-touch')
+      $('body').toggleClass('is-app-nav-active')
+      false
     else
       true
 
@@ -82,17 +103,6 @@ if $app.length
   # ----- Mobile Nav ----- #
   setMobileNav = ->
     if onMobile()
-      # add touch trigger
-      touchTrigger = document.getElementById('app-nav-touch-trigger')
-      touchTrigger?.parentNode?.removeChild(touchTrigger)
-      touchTrigger = document.createElement("div")
-      touchTrigger.id = "app-nav-touch-trigger"
-      document.body?.appendChild touchTrigger
-      touchTrigger = document.getElementById('site-nav-touch-trigger')
-      touchTrigger?.parentNode?.removeChild(touchTrigger)
-      touchTrigger = document.createElement("div")
-      touchTrigger.id = "site-nav-touch-trigger"
-      document.body?.appendChild touchTrigger
 
       mobileNavSwipe = (event, phase, direction, distance, duration, fingers, fingerData) ->
         distance = 0 if direction == 'up' or direction == 'down'
@@ -218,6 +228,31 @@ if $app.length
 
   setMobileNav()
 
-  $(window).resize ->
+  setTabletNav = ->
+    if onTablet()
+      removeStyleFromPage('js-tablet-site-nav-css')
+      css = []
+      siteNavHeight = $siteNav.height()
+      appNavHeight = $appNav.height()
+      appNavWidth = $appNav.width()
+      siteNavScale = appNavHeight / siteNavHeight
+      css.push ".site-nav { -webkit-transform: translateX(0) scaleY(0); -moz-transform: translateX(0) scaleY(0); -ms-transform: translateX(0) scaleY(0); -o-transform: translateX(0) scaleY(0); }"
+      css.push ".no-touch .app-logo:hover ~ .site-nav, .app-nav:hover ~ .site-nav, #site-nav-touch-trigger:hover ~ * .site-nav, .is-app-nav-active .site-nav { -webkit-transform: translateX(0) scaleY(#{siteNavScale}); -moz-transform: translateX(0) scaleY(#{siteNavScale}); -ms-transform: translateX(0) scaleY(#{siteNavScale}); -o-transform: translateX(0) scaleY(#{siteNavScale}); }"
+      css.push ".no-touch #site-nav-touch-trigger:hover ~ * .site-nav, .no-touch .site-nav:hover, .is-site-nav-active .site-nav { -webkit-transform: translateX(#{appNavWidth}px) scaleY(1); -moz-transform: translateX(#{appNavWidth}px) scaleY(1); -ms-transform: translateX(#{appNavWidth}px) scaleY(1); -o-transform: translateX(#{appNavWidth}px) scaleY(1); }"
+      # css.push ".no-touch .is-site-nav-active .app-logo:hover ~ .site-nav, .is-site-nav-active .app-nav:hover ~ .site-nav, .is-app-nav-active.is-site-nav-active .site-nav { -webkit-transform: translateX(0) scaleY(#{siteNavScale}); -moz-transform: translateX(0) scaleY(1); -ms-transform: translateX(0) scaleY(1); -o-transform: translateX(0) scaleY(1); }"
+      addStyleToPage(css, 'js-tablet-site-nav-css')
+    else
+      removeStyleFromPage('js-tablet-site-nav-css')
+
+  setTabletNav()
+
+  winResizeRefresh = ->
     setMobileNav()
-    WINDOW_WIDTH = $(window).width()
+    setTabletNav()
+    $('body').removeClass('is-app-nav-active')
+    $('body').removeClass('is-site-nav-active')
+
+  $(window).resize ->
+    waitForFinalEvent (->
+      winResizeRefresh()
+    ), 100, "pageWinResizeR1537"

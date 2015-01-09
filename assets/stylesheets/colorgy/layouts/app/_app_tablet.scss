@@ -6,46 +6,101 @@
 
 	@include media($msu) {
 
-		> .site-banner {
-			position: relative;
-			height: $site-banner-height;
-		}
-
 		> .app {
 
 			> .app-logo {
 				@include span-columns(2);
-				@include full-width-background($primary-color);
-				padding-left: 0;
-
-				&::before {
-					right: 0;
-				}
+				@include full-width-background($primary-color, right);
+				@include position-sticky;
+				top: 0;
 
 				&, > * {
 					@include z-index-of(app-logo);
 					color: foreground-color($primary-color);
 					text-align: center;
 				}
-
-				& {
-					@include position-sticky;
-					top: 0;
-				}
 			}
 
 			> .app-menu {
 				@include z-index-of(app-menu);
 				@include full-width-background($base-background-color);
-				@include span-columns(10);
+				@include span-columns(6);
 				@include omega;
-				& {
-					@include position-sticky;
-				}
+				@include position-sticky;
 				top: 0;
 				height: $app-menu-height;
-				display: block;
+			}
+
+			> .app-nav {
+				@include z-index-of(app-nav);
+				@include span-columns(2);
+				@include full-width-background(rgba($base-background-color, .97), right);
+				@include transition-property(transform, opacity);
+				@include transition-duration(.3s);
+				@include transform-origin(center, top);
+				@include scaleY(0);
+				position: absolute;
+				@include position-sticky;
+				top: $app-menu-height;
+				margin-bottom: -9998px;
+				opacity: 0;
+			}
+
+			.no-touch & > .app-logo:hover ~ .app-nav,
+			.no-touch #site-nav-touch-trigger:hover ~ & > .app-nav,
+			> .app-nav:hover,
+			.is-app-nav-active & > .app-nav {
+				@include scaleY(1);
+				opacity: 1;
+			}
+
+			> .site-nav {
+				@include z-index-of(site-nav);
+				@include span-columns(2);
+				@include transition-property(transform, opacity);
+				@include transition-duration(.3s);
+				@include transform-origin(center, top);
+				position: absolute;
+				@include position-sticky;
+				top: $app-menu-height;
+				left: - flex-grid(2, 8) !important;
+				margin-bottom: -9998px;
+				opacity: 0;
+				@include debug;
+			}
+
+			.no-touch & > .app-logo:hover ~ .site-nav,
+			.no-touch #site-nav-touch-trigger:hover ~ & > .site-nav,
+			> .app-nav:hover ~ .site-nav,
+			.no-touch & > .site-nav:hover,
+			.is-app-nav-active & > .site-nav {
+				opacity: 1;
+			}
+
+			// .no-touch #site-nav-touch-trigger:hover ~ * .site-nav,
+			// .is-site-nav-active .site-nav {
+			// 	@include transform(translateX(flex-grid(2, 8)) scaleY(1));
+			// 	opacity: 1;
+			// }
+
+			> .main {
+				@include span-columns(8);
 			}
 		}
+	}
+}
+
+@include media($msu) {
+
+	#site-nav-touch-trigger {
+		@include z-index-of(touch-trigger);
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 12px;
+		height: 100%;
+
+		// @include debug(red);
 	}
 }
