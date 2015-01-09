@@ -56,6 +56,15 @@ $logo-width: 45px;
 	}
 }
 
+#app-nav-touch-trigger {
+	display: none;
+}
+
+
+#site-nav-touch-trigger {
+	display: none;
+}
+
 @import "app_msd";
 @import "app_msu";
 @import "app_lsu";

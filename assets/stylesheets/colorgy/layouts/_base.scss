@@ -7,3 +7,17 @@ $site-banner-height: 64px !default;
 	height: $site-banner-height;
 	border-bottom: $base-border;
 }
+
+#body-dimmer {
+	@include z-index-of(body-dimmer);
+	@include transition-property(opacity);
+	@include transition-duration(.32s);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: 0;
+	pointer-events: none;
+}

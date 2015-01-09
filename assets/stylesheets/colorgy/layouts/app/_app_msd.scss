@@ -35,24 +35,55 @@ $mobile-nav-width: 230px;
 				@include position-sticky;
 				display: none;
 				top: 0;
+				padding-right: $logo-width;
 				padding-left: $logo-width;
+				@include debug;
 			}
 
 			> .main {
 				@include span-columns(4);
 			}
 
-
 			> .app-nav {
+				@include z-index-of(app-nav-mobile);
 				@include translateX(0);
+				@include transition-property(transform);
+				@include transition-duration(.32s);
 				position: fixed !important;
 				top: 0 !important;
-				left: - $mobile-nav-width !important;
-				width: $mobile-nav-width !important;
+				left: - $mobile-nav-width * 10 !important;
+				width: $mobile-nav-width * 10 !important;
 				height: 100% !important;
-				@include debug;
+				padding-left: $mobile-nav-width * 9;
+				@include debug(black);
 
-				&.is-active {
+				body.is-app-nav-active & {
+					@include translateX($mobile-nav-width);
+				}
+
+				& ~ div:not([class]) {
+					display: none;
+				}
+			}
+
+			> .site-nav {
+				@include z-index-of(site-nav-mobile);
+				@include translateX(0);
+				@include transition-property(transform);
+				@include transition-duration(.32s);
+				position: fixed !important;
+				top: 0 !important;
+				left: - $mobile-nav-width * 10 !important;
+				width: $mobile-nav-width * 10 !important;
+				height: 100% !important;
+				padding-left: $mobile-nav-width * 9;
+				@include debug(orange);
+
+				body.is-app-nav-active & {
+					@include translateX(4px);
+				}
+
+				body.is-site-nav-active & {
 					@include translateX($mobile-nav-width);
 				}
 
@@ -73,6 +104,49 @@ $mobile-nav-width: 230px;
 				@include position-sticky;
 				display: block;
 			}
+		}
+	}
+}
+
+@include media($msd) {
+
+	#app-nav-touch-trigger {
+		@include z-index-of(trigger);
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 32px;
+		height: 100%;
+
+		body.is-app-nav-active & {
+			width: 100%;
+		}
+	}
+
+	#site-nav-touch-trigger {
+		@include z-index-of(trigger);
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 0;
+		height: 100%;
+
+		body.is-app-nav-active & {
+			width: 32px;
+		}
+
+		body.is-site-nav-active & {
+			width: 100%;
+		}
+	}
+
+	#body-dimmer {
+
+		body.is-app-nav-active & {
+			opacity: .5;
+			pointer-events: auto;
 		}
 	}
 }

@@ -124,8 +124,8 @@
 
 // ----- Debug ----- //
 
-@mixin debug {
-	background-color: rgba(pink, .8) !important;
+@mixin debug($color: pink) {
+	background-color: rgba($color, .8) !important;
 }
 
 // ----- Full-width Background ----- //

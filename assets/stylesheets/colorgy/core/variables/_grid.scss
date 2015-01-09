@@ -7,7 +7,7 @@ $grid-columns: 4;
 // $max-width: em(1088);
 
 // Breakpoints
-$medium-screen: em(700);
+$medium-screen: em(1200);
 $large-screen: em(1200);
 
 $medium-screen-down: new-breakpoint(max-width ($medium-screen - 1) 4);
