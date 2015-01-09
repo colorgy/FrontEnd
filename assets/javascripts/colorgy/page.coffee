@@ -10,12 +10,16 @@ LARGE_SCREEN_SIZE = 1200
 MOBILE_NAV_WIDTH = 230
 LOGO_WIDTH = 45
 WINDOW_WIDTH = $(window).width()
+TOUCH_EVENTS = ['tap','hold', 'swipe','swipeLeft','swipeRight','swipeUp','swipeDown','swipeStatus','pinch','pinchIn','pinchOut','pinchStatus'];
 
 $(window).resize ->
   WINDOW_WIDTH = $(window).width()
 
 onMobile = ->
   WINDOW_WIDTH < MEDIUM_SCREEN_SIZE
+
+nullFunction = ->
+  false
 
 # -------------------------------------
 #   Base Layout
@@ -27,7 +31,7 @@ if true
 
   # add dimmer
   bodyDimmer = document.getElementById('body-dimmer')
-  bodyDimmer?.parentNode?.removeChild(jsCssNode)
+  bodyDimmer?.parentNode?.removeChild(bodyDimmer)
   bodyDimmer = document.createElement("div")
   bodyDimmer.id = "body-dimmer"
   document.body?.appendChild bodyDimmer
@@ -80,12 +84,12 @@ if $app.length
     if onMobile()
       # add touch trigger
       touchTrigger = document.getElementById('app-nav-touch-trigger')
-      touchTrigger?.parentNode?.removeChild(jsCssNode)
+      touchTrigger?.parentNode?.removeChild(touchTrigger)
       touchTrigger = document.createElement("div")
       touchTrigger.id = "app-nav-touch-trigger"
       document.body?.appendChild touchTrigger
       touchTrigger = document.getElementById('site-nav-touch-trigger')
-      touchTrigger?.parentNode?.removeChild(jsCssNode)
+      touchTrigger?.parentNode?.removeChild(touchTrigger)
       touchTrigger = document.createElement("div")
       touchTrigger.id = "site-nav-touch-trigger"
       document.body?.appendChild touchTrigger
@@ -143,16 +147,6 @@ if $app.length
           $bodyDimmer.attr('style', '')
           $(this).attr('style', '')
 
-      $("#app-nav-touch-trigger").swipe
-        swipeStatus: mobileNavSwipe
-        allowPageScroll: "vertical"
-        threshold: 5
-
-      $appNav.swipe
-        swipeStatus: mobileNavSwipe
-        allowPageScroll: "vertical"
-        threshold: 5
-
       siteNavSwipe = (event, phase, direction, distance, duration, fingers, fingerData) ->
         distance = 0 if direction == 'up' or direction == 'down'
         if phase == 'move'
@@ -195,6 +189,16 @@ if $app.length
           $bodyDimmer.attr('style', '')
           $(this).attr('style', '')
 
+      $("#app-nav-touch-trigger").swipe
+        swipeStatus: mobileNavSwipe
+        allowPageScroll: "vertical"
+        threshold: 5
+
+      $appNav.swipe
+        swipeStatus: mobileNavSwipe
+        allowPageScroll: "vertical"
+        threshold: 5
+
       $("#site-nav-touch-trigger").swipe
         swipeStatus: siteNavSwipe
         allowPageScroll: "vertical"
@@ -208,6 +212,9 @@ if $app.length
       $('#body-dimmer').click ->
         $('body').removeClass('is-app-nav-active')
         $('body').removeClass('is-site-nav-active')
+    else
+      $appNav.off()
+      $siteNav.off()
 
   setMobileNav()
 

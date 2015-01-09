@@ -35,8 +35,8 @@ $mobile-nav-width: 230px;
 				@include position-sticky;
 				display: none;
 				top: 0;
-				padding-right: $logo-width;
-				padding-left: $logo-width;
+				border-right: $logo-width solid transparent;
+				border-left: $logo-width solid transparent;
 				@include debug;
 			}
 
@@ -46,7 +46,6 @@ $mobile-nav-width: 230px;
 
 			> .app-nav,
 			> .site-nav {
-				z-index: 0;
 				@include translateX(0);
 				@include transition-property(transform);
 				@include transition-duration(.32s);

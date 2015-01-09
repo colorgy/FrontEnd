@@ -65,6 +65,6 @@ $logo-width: 45px;
 	display: none;
 }
 
-@import "app_msd";
-@import "app_msu";
-@import "app_lsu";
+@import "app_mobile";
+@import "app_tablet";
+@import "app_desktop";
