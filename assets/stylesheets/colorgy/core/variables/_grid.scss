@@ -4,6 +4,8 @@
 $column: 7;
 $gutter: 1;
 $grid-columns: 4;
+$medium-screen-grid-columns: 8;
+$large-screen-grid-columns: 12;
 // $max-width: em(1088);
 
 // Breakpoints
@@ -11,8 +13,8 @@ $medium-screen: 800px;
 $large-screen: 1200px;
 
 $medium-screen-down: new-breakpoint(max-width ($medium-screen - 1) 4);
-$medium-screen-up: new-breakpoint(min-width $medium-screen 8);
-$large-screen-up: new-breakpoint(min-width $large-screen 12);
+$medium-screen-up: new-breakpoint(min-width $medium-screen $medium-screen-grid-columns);
+$large-screen-up: new-breakpoint(min-width $large-screen $large-screen-grid-columns);
 
 $msd: $medium-screen-down;
 $msu: $medium-screen-up;

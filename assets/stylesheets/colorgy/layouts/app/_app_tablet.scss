@@ -54,7 +54,16 @@
 			> .site-nav {
 				@include z-index-of(site-nav);
 				// @include dynamic transform defined in page.js
+				left: auto !important;
+				right: auto !important;
+				// @include dynamic width defined in page.js
 				@include debug;
+
+				li {
+					@include transition-property(all);
+					@include transition-duration(.3s);
+					opacity: 0;
+				}
 			}
 
 			// app-nav active state
@@ -72,7 +81,7 @@
 			.is-app-nav-active & > .site-nav,
 			.no-touch & > .app-nav:hover ~ .site-nav {
 				// @include dynamic transform defined in page.js
-				opacity: 1;
+				opacity: .5;
 			}
 
 			// site-nav active state
@@ -81,6 +90,10 @@
 			.no-touch & > .site-nav:hover {
 				// @include dynamic transform defined in page.js
 				opacity: 1;
+
+				li {
+					opacity: 1;
+				}
 			}
 
 			// .no-touch & > .app-logo:hover ~ .site-nav,
