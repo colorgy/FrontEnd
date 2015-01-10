@@ -2,7 +2,7 @@
 //   Respond for Medium Screen Down
 // -------------------------------------
 
-$mobile-nav-width: 230px;
+$mobile-nav-width: 250px;
 
 .l-app {
 
@@ -46,6 +46,7 @@ $mobile-nav-width: 230px;
 
 			> .app-nav,
 			> .site-nav {
+				@include shadow;
 				@include translateX(0);
 				@include transition-property(transform);
 				@include transition-duration(.32s);
@@ -60,29 +61,42 @@ $mobile-nav-width: 230px;
 
 			> .app-nav {
 				@include z-index-of(app-nav-mobile);
-				left: - $mobile-nav-width * 1.86 !important;
+				left: - ($mobile-nav-width + 4) * 1.86 !important;
 				width: $mobile-nav-width * 1.86 !important;
 				padding-left: $mobile-nav-width * (1.86 - 1);
-				@include debug(black);
+				border-left: 8px solid transparent;
 
 				body.is-app-nav-active & {
-					@include translateX($mobile-nav-width);
+					@include translateX($mobile-nav-width + 4);
+				}
+
+				body.is-app-nav-active.is-site-nav-active & {
+					@include translateX($mobile-nav-width + 4 + 16);
 				}
 			}
 
 			> .site-nav {
 				@include z-index-of(site-nav-mobile);
-				left: - ($mobile-nav-width - 8) * 1.86 !important;
-				width: ($mobile-nav-width - 8) * 1.86 !important;
-				padding-left: ($mobile-nav-width - 8) * (1.86 - 1);
-				@include debug(orange);
+				left: - (($mobile-nav-width + 4) - 0) * 1.86 !important;
+				width: ($mobile-nav-width - 0) * 1.86 !important;
+				padding-left: ($mobile-nav-width - 0) * (1.86 - 1);
 
 				body.is-app-nav-active & {
-					@include translateX(4px);
+					@include translateX(12px);
 				}
 
 				body.is-app-nav-active.is-site-nav-active & {
-					@include translateX($mobile-nav-width - 8);
+					@include translateX($mobile-nav-width + 4 - 0);
+				}
+
+				ul {
+					height: 100%;
+					margin-left: -98px;
+					padding-left: 20px;
+
+					> * {
+						padding-left: 98px;
+					}
 				}
 			}
 		}

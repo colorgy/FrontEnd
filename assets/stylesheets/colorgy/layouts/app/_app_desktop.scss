@@ -10,7 +10,6 @@
 
 			> .app-logo {
 				@include span-columns(2);
-				text-align: center;
 			}
 
 			> .app-menu {
@@ -29,7 +28,7 @@
 				left: auto !important;
 				right: auto !important;
 				// @include dynamic width defined in page.js
-				opacity: .5;
+				opacity: .2;
 			}
 
 			> .main {

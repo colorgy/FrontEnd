@@ -1,0 +1,35 @@
+.site-nav {
+
+	ul {
+		overflow-y: scroll;
+		overflow-x: visible;
+		background-color: $primary-color;
+	}
+
+	li {
+		@extend %app-logo-block;
+		position: relative;
+		height: $app-menu-height;
+	}
+
+	* {
+		line-height: $app-menu-height;
+	}
+
+	li {
+
+		a {
+			@include transition-delay((10*4)/100 + s);
+		}
+	}
+
+	@for $i from 1 through 10 {
+
+		li:nth-child(#{$i}){
+
+			a {
+				@include transition-delay(($i*4)/100 + s);
+			}
+		}
+	}
+}

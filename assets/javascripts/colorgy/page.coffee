@@ -7,13 +7,18 @@
 # Constants
 MEDIUM_SCREEN_SIZE = 800
 LARGE_SCREEN_SIZE = 1200
-MOBILE_NAV_WIDTH = 230
+MOBILE_NAV_WIDTH = 250
 LOGO_WIDTH = 45
 WINDOW_WIDTH = $(window).width()
+WINDOW_HEIGHT = $(window).height()
 TOUCH_EVENTS = ['tap','hold', 'swipe','swipeLeft','swipeRight','swipeUp','swipeDown','swipeStatus','pinch','pinchIn','pinchOut','pinchStatus'];
 
 $(window).resize ->
+  if WINDOW_WIDTH != $(window).width()
+    $('body').removeClass('is-app-nav-active')
+    $('body').removeClass('is-site-nav-active')
   WINDOW_WIDTH = $(window).width()
+  WINDOW_HEIGHT = $(window).height()
 
 onMobile = ->
   WINDOW_WIDTH < MEDIUM_SCREEN_SIZE
@@ -126,7 +131,7 @@ if $app.length
         px = distance
         px = px * -1 if direction == 'left'
         px = px + MOBILE_NAV_WIDTH if $('body').hasClass('is-app-nav-active')
-        px = MOBILE_NAV_WIDTH * 1.2 if px > MOBILE_NAV_WIDTH * 1.2
+        px = MOBILE_NAV_WIDTH + 4 if px > MOBILE_NAV_WIDTH + 4
         swipeRate = (MOBILE_NAV_WIDTH-px)/MOBILE_NAV_WIDTH
         $(this).css
           "width": "100%"
@@ -179,7 +184,7 @@ if $app.length
         px = distance
         px = px * -1 if direction == 'left'
         px = px + MOBILE_NAV_WIDTH if $('body').hasClass('is-site-nav-active')
-        px = MOBILE_NAV_WIDTH * 1.2 if px > MOBILE_NAV_WIDTH * 1.2
+        px = MOBILE_NAV_WIDTH + 4 if px > MOBILE_NAV_WIDTH + 4
         $(this).css
           "width": "100%"
           "left": "0"
@@ -243,8 +248,8 @@ if $app.length
           "-ms-transform": "translateX(#{px}px) scaleY(#{scale})"
           "-o-transform": "translateX(#{px}px) scaleY(#{scale})"
           "transform": "translateX(#{px}px) scaleY(#{scale})"
-          "opacity": "#{rate * 0.5 + 0.5}"
-        $siteNav.children('ul').children('li').css
+          "opacity": "#{rate * 0.8 + 0.2}"
+        $siteNav.children('ul').children('li').children('a').css
           "-webkit-transition-property": "none"
           "-moz-transition-property": "none"
           "-o-transition-property": "none"
@@ -283,7 +288,7 @@ if $app.length
           "-o-transform": ""
           "transform": ""
           "opacity": ""
-        $siteNav.children('ul').children('li').css
+        $siteNav.children('ul').children('li').children('a').css
           "-webkit-transition-property": ""
           "-moz-transition-property": ""
           "-o-transition-property": ""
@@ -335,22 +340,29 @@ if $app.length
 
   setTabletNav = ->
     if onTabletUp()
+      removeStyleFromPage('js-tablet-site-nav-trans')
       removeStyleFromPage('js-tablet-site-nav-css')
       css = []
       siteNavHeight = $siteNav.height()
       appNavHeight = $appNav.height()
       appNavWidth = $appNav.width()
-      siteNavScale = appNavHeight / siteNavHeight
+      siteNavScale = (appNavHeight + 0.498) / siteNavHeight
       # site-nav normal state
       css.push ".l-app > .app > .site-nav { width: #{appNavWidth}px !important; }"
-      css.push ".l-app > .app > .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(0); -moz-transform: translateX(-#{appNavWidth}px) scaleY(0); -ms-transform: translateX(-#{appNavWidth}px) scaleY(0); -o-transform: translateX(-#{appNavWidth}px) scaleY(0); transform: translateX(-#{appNavWidth}px) scaleY(0); }" if onTablet()
-      css.push ".l-app > .app > .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -moz-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -ms-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -o-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); }" if onDesktop()
+      css.push ".l-app > .app > .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(0) scaleX(0.96); -moz-transform: translateX(-#{appNavWidth}px) scaleY(0) scaleX(0.96); -ms-transform: translateX(-#{appNavWidth}px) scaleY(0) scaleX(0.96); -o-transform: translateX(-#{appNavWidth}px) scaleY(0) scaleX(0.96); transform: translateX(-#{appNavWidth}px) scaleY(0) scaleX(0.96); }" if onTablet()
+      css.push ".l-app > .app > .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); -moz-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); -ms-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); -o-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); }" if onDesktop()
       # site-nav on app-nav active state
-      css.push ".no-touch .l-app > .app > .app-logo:hover ~ .site-nav, .no-touch #site-nav-touch-trigger:hover ~ .l-app > .app > .site-nav, .is-app-nav-active .l-app > .app > .site-nav, .no-touch .l-app > .app > .app-nav:hover ~ .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -moz-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -ms-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -o-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); }"
+      css.push ".no-touch .l-app > .app > .app-logo:hover ~ .site-nav, .no-touch #site-nav-touch-trigger:hover ~ .l-app > .app > .site-nav, .is-app-nav-active .l-app > .app > .site-nav, .no-touch .l-app > .app > .app-nav:hover ~ .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.96); -moz-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.96); -ms-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.96); -o-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.96); transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.96); }" if onTablet()
+      css.push ".no-touch .l-app > .app > .app-logo:hover ~ .site-nav, .no-touch #site-nav-touch-trigger:hover ~ .l-app > .app > .site-nav, .is-app-nav-active .l-app > .app > .site-nav, .no-touch .l-app > .app > .app-nav:hover ~ .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); -moz-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); -ms-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); -o-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}) scaleX(0.9); }" if onDesktop()
       # site-nav active state
-      css.push ".no-touch #site-nav-touch-trigger:hover ~ .l-app > .app > .site-nav, .is-site-nav-active .l-app > .app > .site-nav, .no-touch .l-app > .app > .site-nav:hover { -webkit-transform: translateX(0) scaleY(1); -moz-transform: translateX(0) scaleY(1); -ms-transform: translateX(0) scaleY(1); -o-transform: translateX(0) scaleY(1); transform: translateX(0) scaleY(1); }"
+      css.push ".no-touch #site-nav-touch-trigger:hover ~ .l-app > .app > .site-nav, .is-site-nav-active .l-app > .app > .site-nav, .no-touch .l-app > .app > .site-nav:hover { -webkit-transform: translateX(0) scaleY(1) scaleX(1); -moz-transform: translateX(0) scaleY(1) scaleX(1); -ms-transform: translateX(0) scaleY(1) scaleX(1); -o-transform: translateX(0) scaleY(1) scaleX(1); transform: translateX(0) scaleY(1) scaleX(1); }"
       addStyleToPage(css, 'js-tablet-site-nav-css')
+
+      setTimeout ->
+        addStyleToPage(".l-app > .app > .app-nav, .l-app > .app > .site-nav { -webkit-transition-property: -webkit-transform, opacity; -moz-transition-property: -moz-transform, opacity; -o-transition-property: -o-transform, opacity; transition-property: transform, opacity; -webkit-transition-duration: 0.3s; -moz-transition-duration: 0.3s; -o-transition-duration: 0.3s; transition-duration: 0.3s; }", 'js-tablet-site-nav-css-trans')
+      , 500
     else
+      removeStyleFromPage('js-tablet-site-nav-trans')
       removeStyleFromPage('js-tablet-site-nav-css')
 
   setTabletNav()
@@ -367,8 +379,8 @@ if $app.length
     setTabletNav()
 
   $(window).resize ->
-    $('body').removeClass('is-app-nav-active')
-    $('body').removeClass('is-site-nav-active')
     waitForFinalEvent (->
       winResizeRefresh()
     ), 100, "pageWinResizeR1537"
+
+$('body').addClass('ready')

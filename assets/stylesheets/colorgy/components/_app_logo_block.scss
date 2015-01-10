@@ -1,0 +1,29 @@
+.app-logo-block,
+%app-logo-block {
+	padding: 0 5px;
+
+	.bg {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+
+		@include media($msu) {
+			width: 99998px;
+		}
+	}
+
+	a {
+		position: relative;
+		color: $base-light-color;
+		font-family: $app-logo-font-family;
+		letter-spacing: .1em;
+		text-transform: uppercase;
+		word-spacing: 3;
+
+		@include media($msu) {
+			font-size: 1.7rem;
+		}
+	}
+}

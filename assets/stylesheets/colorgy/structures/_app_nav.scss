@@ -1,0 +1,6 @@
+.app-nav {
+
+	@include media($msd) {
+		background-color: darken($base-background-color, 3%);
+	}
+}

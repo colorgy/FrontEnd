@@ -9,15 +9,17 @@
 		> .app {
 
 			> .app-logo {
+				@extend %app-logo-block;
 				@include span-columns(2);
 				@include full-width-background($primary-color, right);
 				@include position-sticky;
 				top: 0;
+				padding: 0 5px;
 
 				&, > * {
 					@include z-index-of(app-logo);
 					color: foreground-color($primary-color);
-					text-align: center;
+					text-align: left;
 				}
 			}
 
@@ -34,8 +36,8 @@
 			> .app-nav,
 			> .site-nav {
 				@include span-columns(2);
-				@include transition-property(transform, opacity);
-				@include transition-duration(.3s);
+				// @include transition-property(transform, opacity);
+				// @include transition-duration(.3s);
 				@include transform-origin(center, top);
 				position: absolute;
 				@include position-sticky;
@@ -59,10 +61,25 @@
 				// @include dynamic width defined in page.js
 				@include debug;
 
-				li {
+				a {
 					@include transition-property(all);
 					@include transition-duration(.3s);
 					opacity: 0;
+				}
+
+				ul {
+					margin-left: -9998px;
+					max-height: $app-menu-height*8.3;
+
+					> * {
+						padding-left: 9998px;
+					}
+				}
+
+				display: none;
+
+				.ready & {
+					display: block;
 				}
 			}
 
@@ -81,7 +98,7 @@
 			.is-app-nav-active & > .site-nav,
 			.no-touch & > .app-nav:hover ~ .site-nav {
 				// @include dynamic transform defined in page.js
-				opacity: .5;
+				opacity: .2;
 			}
 
 			// site-nav active state
@@ -91,7 +108,7 @@
 				// @include dynamic transform defined in page.js
 				opacity: 1;
 
-				li {
+				a {
 					opacity: 1;
 				}
 			}

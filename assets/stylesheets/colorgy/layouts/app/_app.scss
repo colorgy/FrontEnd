@@ -48,12 +48,20 @@ $logo-width: 45px;
 		> .app-nav {
 			@include z-index-of(app-nav);
 			position: relative;
+
+			&::before {
+				@include nav-shadow;
+			}
 		}
 
 
 		> .site-nav {
 			@include z-index-of(site-nav);
 			position: fixed;
+
+			ul {
+				@include nav-shadow;
+			}
 		}
 	}
 }

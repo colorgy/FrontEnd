@@ -5,6 +5,9 @@
 
 $site-logo: "colorgy/logo.svg";
 
+$site-banner-height: 64px !default;
+$app-menu-height: $site-banner-height * .8 !default;
+
 $z-index-elements: background,
                    shadow,
                    container,
