@@ -26,6 +26,7 @@
 			}
 
 			> .site-nav {
+				@include span-columns(2);
 
 			}
 

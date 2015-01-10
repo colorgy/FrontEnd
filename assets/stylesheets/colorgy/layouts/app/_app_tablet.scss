@@ -31,14 +31,12 @@
 				height: $app-menu-height;
 			}
 
-			> .app-nav {
-				@include z-index-of(app-nav);
+			> .app-nav,
+			> .site-nav {
 				@include span-columns(2);
-				@include full-width-background(rgba($base-background-color, .97), right);
 				@include transition-property(transform, opacity);
 				@include transition-duration(.3s);
 				@include transform-origin(center, top);
-				@include scaleY(0);
 				position: absolute;
 				@include position-sticky;
 				top: $app-menu-height;
@@ -46,28 +44,44 @@
 				opacity: 0;
 			}
 
+			> .app-nav {
+				@include z-index-of(app-nav);
+				@include full-width-background(rgba($base-background-color, .97), right);
+				@include scaleY(0);
+			}
+
+
+			> .site-nav {
+				@include z-index-of(site-nav);
+				// @include dynamic transform defined in page.js
+				@include debug;
+			}
+
+			// app-nav active state
 			.no-touch & > .app-logo:hover ~ .app-nav,
 			.no-touch #site-nav-touch-trigger:hover ~ & > .app-nav,
-			> .app-nav:hover,
-			.is-app-nav-active & > .app-nav {
+			.is-app-nav-active & > .app-nav,
+			> .app-nav:hover {
 				@include scaleY(1);
 				opacity: 1;
 			}
 
-			// > .site-nav {
-			// 	@include z-index-of(site-nav);
-			// 	@include span-columns(2);
-			// 	@include transition-property(transform, opacity);
-			// 	@include transition-duration(.3s);
-			// 	@include transform-origin(center, top);
-			// 	position: absolute;
-			// 	@include position-sticky;
-			// 	top: $app-menu-height;
-			// 	left: - 1px !important;
-			// 	margin-bottom: -9998px;
-			// 	opacity: 0;
-			// 	@include debug;
-			// }
+			// site-nav on app-nav active state
+			.no-touch & > .app-logo:hover ~ .site-nav,
+			.no-touch #site-nav-touch-trigger:hover ~ & > .site-nav,
+			.is-app-nav-active & > .site-nav,
+			> .app-nav:hover ~ .site-nav {
+				// @include dynamic transform defined in page.js
+				opacity: 1;
+			}
+
+			// site-nav active state
+			.no-touch #site-nav-touch-trigger:hover ~ & > .site-nav,
+			.is-site-nav-active & > .site-nav,
+			> .site-nav:hover {
+				// @include dynamic transform defined in page.js
+				opacity: 1;
+			}
 
 			// .no-touch & > .app-logo:hover ~ .site-nav,
 			// .no-touch #site-nav-touch-trigger:hover ~ & > .site-nav,
