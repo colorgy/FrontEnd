@@ -27,6 +27,7 @@ onDesktop = ->
 nullFunction = ->
   false
 
+
 # -------------------------------------
 #   Base Layout
 # -------------------------------------
@@ -44,6 +45,7 @@ if true
 
   $bodyDimmer = $('#body-dimmer')
 
+
 # -------------------------------------
 #   Application Layout
 # -------------------------------------
@@ -54,6 +56,11 @@ if $app.length
   # ----- Page Elements ----- #
   $appNav = $('#app-nav')
   $siteNav = $('#site-nav')
+
+  appNavWidth = $appNav.width()
+  appNavHeight = $appNav.height()
+  siteNavHeight = $siteNav.height()
+  appNavOffset = $appNav.offset()
 
   # check if the page has a App Menu
   if $app.children('.app-menu')?.children()?.children()?.length
@@ -74,6 +81,7 @@ if $app.length
   $siteNavTouchTrigger = $("#site-nav-touch-trigger")
   $appNavTouchTrigger = $("#app-nav-touch-trigger")
 
+
   # ----- Register Events ----- #
 
   # Click Events
@@ -93,6 +101,7 @@ if $app.length
       false
     else if onTablet() and not $('body').hasClass('no-touch')
       $('body').toggleClass('is-app-nav-active')
+      $('body').removeClass('is-site-nav-active')
       false
     else
       true
@@ -128,12 +137,11 @@ if $app.length
           "-moz-transition-duration": "0"
           "-o-transition-duration": "0"
           "transition-duration": "0"
-          "-webkit-transform": "translateX(#{px}px)"
-          "-webkit-transform": "translateX(#{px}px)"
-          "-moz-transform": "translateX(#{px}px)"
-          "-ms-transform": "translateX(#{px}px)"
-          "-o-transform": "translateX(#{px}px)"
-          "transform": "translateX(#{px}px)"
+          "-webkit-transform": "translateX(#{px}px) scaleY(1)"
+          "-moz-transform": "translateX(#{px}px) scaleY(1)"
+          "-ms-transform": "translateX(#{px}px) scaleY(1)"
+          "-o-transform": "translateX(#{px}px) scaleY(1)"
+          "transform": "translateX(#{px}px) scaleY(1)"
         $bodyDimmer.css
           "-webkit-transition-property": "none"
           "-moz-transition-property": "none"
@@ -166,7 +174,6 @@ if $app.length
       distance = 0 if direction == 'up' or direction == 'down'
       if phase == 'move'
         px = distance
-        distance = 0 if direction == 'up' or direction == 'down'
         px = px * -1 if direction == 'left'
         px = px + MOBILE_NAV_WIDTH if $('body').hasClass('is-site-nav-active')
         px = MOBILE_NAV_WIDTH * 1.2 if px > MOBILE_NAV_WIDTH * 1.2
@@ -182,7 +189,6 @@ if $app.length
           "-moz-transition-duration": "0"
           "-o-transition-duration": "0"
           "transition-duration": "0"
-          "-webkit-transform": "translateX(#{px}px)"
           "-webkit-transform": "translateX(#{px}px)"
           "-moz-transform": "translateX(#{px}px)"
           "-ms-transform": "translateX(#{px}px)"
@@ -204,8 +210,65 @@ if $app.length
         $bodyDimmer.attr('style', '')
         $(this).attr('style', '')
 
-    else if onTablet()
-      tabletSiteNavSwipe(event, phase, direction, distance, duration, fingers, fingerData)
+    else if onTablet() and not $('html').hasClass('no-touch')
+      distance = 0 if direction == 'up' or direction == 'down'
+      if phase == 'move'
+        px = distance
+        px = px * -1 if direction == 'left'
+        px = px - appNavWidth
+        px = px + appNavWidth if $('body').hasClass('is-site-nav-active')
+        px = 0 if px > 0
+        rate = 1 + (px/appNavWidth)
+        siteNavScaleDiff = siteNavHeight - appNavHeight
+        scale = (appNavHeight + siteNavScaleDiff*rate) / siteNavHeight
+        console.log rate
+        $(this).css
+          "width": "100%"
+          "left": "0"
+        $siteNav.css
+          "width": "#{appNavWidth}px"
+          "-webkit-transition-property": "none"
+          "-moz-transition-property": "none"
+          "-o-transition-property": "none"
+          "transition-property": "none"
+          "-webkit-transition-duration": "0"
+          "-moz-transition-duration": "0"
+          "-o-transition-duration": "0"
+          "transition-duration": "0"
+          "-webkit-transform": "translateX(#{px}px) scaleY(#{scale})"
+          "-webkit-transform": "translateX(#{px}px) scaleY(#{scale})"
+          "-moz-transform": "translateX(#{px}px) scaleY(#{scale})"
+          "-ms-transform": "translateX(#{px}px) scaleY(#{scale})"
+          "-o-transform": "translateX(#{px}px) scaleY(#{scale})"
+          "transform": "translateX(#{px}px) scaleY(#{scale})"
+      else if phase == 'end'
+        if distance > 20 or duration < 100
+          if direction == 'left'
+            $('body').removeClass('is-site-nav-active')
+          if direction == 'right'
+            $('body').addClass('is-site-nav-active')
+      else if phase == 'cancel'
+        $('body').addClass('is-site-nav-active')
+      if phase != 'move'
+        $siteNav.css
+          "-webkit-transition-property": ""
+          "-moz-transition-property": ""
+          "-o-transition-property": ""
+          "transition-property": ""
+          "-webkit-transition-duration": ""
+          "-moz-transition-duration": ""
+          "-o-transition-duration": ""
+          "transition-duration": ""
+          "-webkit-transition": ""
+          "-moz-transition": ""
+          "-o-transition": ""
+          "transition": ""
+          "-webkit-transform": ""
+          "-moz-transform": ""
+          "-ms-transform": ""
+          "-o-transform": ""
+          "transform": ""
+        $(this).attr('style', '')
 
   $appNavTouchTrigger.swipe
     swipeStatus: appNavSwipe
@@ -227,7 +290,9 @@ if $app.length
     allowPageScroll: "vertical"
     threshold: 5
 
+
   # ----- Mobile Nav ----- #
+
   setMobileNav = ->
     if onMobile()
       $('#body-dimmer').click ->
@@ -236,12 +301,9 @@ if $app.length
 
   setMobileNav()
 
-  mobileAppNavSwipe = (event, phase, direction, distance, duration, fingers, fingerData) ->
-
-
-  mobileSiteNavSwipe = (event, phase, direction, distance, duration, fingers, fingerData) ->
 
   # ----- Tablet Nav ----- #
+
   setTabletNav = ->
     if onTablet()
       removeStyleFromPage('js-tablet-site-nav-css')
@@ -251,29 +313,33 @@ if $app.length
       appNavWidth = $appNav.width()
       siteNavScale = appNavHeight / siteNavHeight
       # site-nav normal state
-      css.push ".l-app > .app > .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(0); -moz-transform: translateX(-#{appNavWidth}px) scaleY(0); -ms-transform: translateX(-#{appNavWidth}px) scaleY(0); -o-transform: translateX(-#{appNavWidth}px) scaleY(0); }"
+      css.push ".l-app > .app > .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(0); -moz-transform: translateX(-#{appNavWidth}px) scaleY(0); -ms-transform: translateX(-#{appNavWidth}px) scaleY(0); -o-transform: translateX(-#{appNavWidth}px) scaleY(0); transform: translateX(-#{appNavWidth}px) scaleY(0); }"
       # site-nav on app-nav active state
-      css.push ".no-touch .l-app > .app > .app-logo:hover ~ .site-nav, .no-touch #site-nav-touch-trigger:hover ~ .l-app > .app > .site-nav, .is-app-nav-active .l-app > .app > .site-nav, .l-app > .app > .app-nav:hover ~ .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -moz-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -ms-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -o-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); }"
+      css.push ".no-touch .l-app > .app > .app-logo:hover ~ .site-nav, .no-touch #site-nav-touch-trigger:hover ~ .l-app > .app > .site-nav, .is-app-nav-active .l-app > .app > .site-nav, .no-touch .l-app > .app > .app-nav:hover ~ .site-nav { -webkit-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -moz-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -ms-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); -o-transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); transform: translateX(-#{appNavWidth}px) scaleY(#{siteNavScale}); }"
       # site-nav active state
-      css.push ".no-touch #site-nav-touch-trigger:hover ~ .l-app > .app > .site-nav, .is-site-nav-active .l-app > .app > .site-nav, .l-app > .app > .site-nav:hover { -webkit-transform: translateX(0) scaleY(1); -moz-transform: translateX(0) scaleY(1); -ms-transform: translateX(0) scaleY(1); -o-transform: translateX(0) scaleY(1); }"
+      css.push ".no-touch #site-nav-touch-trigger:hover ~ .l-app > .app > .site-nav, .is-site-nav-active .l-app > .app > .site-nav, .no-touch .l-app > .app > .site-nav:hover { -webkit-transform: translateX(0) scaleY(1); -moz-transform: translateX(0) scaleY(1); -ms-transform: translateX(0) scaleY(1); -o-transform: translateX(0) scaleY(1); transform: translateX(0) scaleY(1); }"
       addStyleToPage(css, 'js-tablet-site-nav-css')
     else
       removeStyleFromPage('js-tablet-site-nav-css')
 
   setTabletNav()
 
-  tabletSiteNavSwipe = (event, phase, direction, distance, duration, fingers, fingerData) ->
-
 
   # ----- Refresh Events ----- #
 
   winResizeRefresh = ->
+    appNavWidth = $appNav.width()
+    appNavHeight = $appNav.height()
+    siteNavHeight = $siteNav.height()
+    appNavOffset = $appNav.offset()
     setMobileNav()
     setTabletNav()
-    $('body').removeClass('is-app-nav-active')
-    $('body').removeClass('is-site-nav-active')
 
   $(window).resize ->
+    $('body').removeClass('is-app-nav-active')
+    $('body').removeClass('is-site-nav-active')
     waitForFinalEvent (->
       winResizeRefresh()
     ), 100, "pageWinResizeR1537"
+
+$('html').removeClass('no-touch')
