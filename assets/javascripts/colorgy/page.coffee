@@ -5,7 +5,7 @@
 ## *************************************
 
 # Constants
-MEDIUM_SCREEN_SIZE = 700
+MEDIUM_SCREEN_SIZE = 800
 LARGE_SCREEN_SIZE = 1200
 MOBILE_NAV_WIDTH = 230
 LOGO_WIDTH = 45
@@ -236,6 +236,7 @@ if $app.length
       appNavHeight = $appNav.height()
       appNavWidth = $appNav.width()
       siteNavScale = appNavHeight / siteNavHeight
+      css.push ".l-app > .app > .site-nav { margin-left: -#{appNavWidth}px; }"
       css.push ".site-nav { -webkit-transform: translateX(0) scaleY(0); -moz-transform: translateX(0) scaleY(0); -ms-transform: translateX(0) scaleY(0); -o-transform: translateX(0) scaleY(0); }"
       css.push ".no-touch .app-logo:hover ~ .site-nav, .app-nav:hover ~ .site-nav, #site-nav-touch-trigger:hover ~ * .site-nav, .is-app-nav-active .site-nav { -webkit-transform: translateX(0) scaleY(#{siteNavScale}); -moz-transform: translateX(0) scaleY(#{siteNavScale}); -ms-transform: translateX(0) scaleY(#{siteNavScale}); -o-transform: translateX(0) scaleY(#{siteNavScale}); }"
       css.push ".no-touch #site-nav-touch-trigger:hover ~ * .site-nav, .no-touch .site-nav:hover, .is-site-nav-active .site-nav { -webkit-transform: translateX(#{appNavWidth}px) scaleY(1); -moz-transform: translateX(#{appNavWidth}px) scaleY(1); -ms-transform: translateX(#{appNavWidth}px) scaleY(1); -o-transform: translateX(#{appNavWidth}px) scaleY(1); }"

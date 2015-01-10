@@ -54,28 +54,28 @@
 				opacity: 1;
 			}
 
-			> .site-nav {
-				@include z-index-of(site-nav);
-				@include span-columns(2);
-				@include transition-property(transform, opacity);
-				@include transition-duration(.3s);
-				@include transform-origin(center, top);
-				position: absolute;
-				@include position-sticky;
-				top: $app-menu-height;
-				left: - flex-grid(2, 8) !important;
-				margin-bottom: -9998px;
-				opacity: 0;
-				@include debug;
-			}
+			// > .site-nav {
+			// 	@include z-index-of(site-nav);
+			// 	@include span-columns(2);
+			// 	@include transition-property(transform, opacity);
+			// 	@include transition-duration(.3s);
+			// 	@include transform-origin(center, top);
+			// 	position: absolute;
+			// 	@include position-sticky;
+			// 	top: $app-menu-height;
+			// 	left: - 1px !important;
+			// 	margin-bottom: -9998px;
+			// 	opacity: 0;
+			// 	@include debug;
+			// }
 
-			.no-touch & > .app-logo:hover ~ .site-nav,
-			.no-touch #site-nav-touch-trigger:hover ~ & > .site-nav,
-			> .app-nav:hover ~ .site-nav,
-			.no-touch & > .site-nav:hover,
-			.is-app-nav-active & > .site-nav {
-				opacity: 1;
-			}
+			// .no-touch & > .app-logo:hover ~ .site-nav,
+			// .no-touch #site-nav-touch-trigger:hover ~ & > .site-nav,
+			// > .app-nav:hover ~ .site-nav,
+			// .no-touch & > .site-nav:hover,
+			// .is-app-nav-active & > .site-nav {
+			// 	opacity: 1;
+			// }
 
 			// .no-touch #site-nav-touch-trigger:hover ~ * .site-nav,
 			// .is-site-nav-active .site-nav {
