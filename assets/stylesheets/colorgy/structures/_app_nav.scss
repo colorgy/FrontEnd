@@ -1,6 +1,63 @@
+$mobile-app-nav-top-height: 100px;
+$mobile-app-nav-bottom-height: 100px;
+
 .app-nav {
+	position: relative;
+
+	.mobile-app-nav-top,
+	.mobile-app-nav-bottom {
+		display: none;
+	}
+
+	li a {
+		display: block;
+		width: 100%;
+	}
 
 	@include media($msd) {
 		background-color: darken($base-background-color, 3%);
+		overflow: auto;
+		overflow-y: auto;
+		overflow-x: hidden;
+
+		ul {
+			min-height: 100%;
+		}
+
+		li {
+
+			a { padding: 8px 4px; }
+
+			&:first-child {
+				padding-top: 12px;
+			}
+		}
+
+		.mobile-app-nav-top,
+		.mobile-app-nav-bottom {
+			display: block;
+			position: absolute;
+			right: 0;
+			width: $mobile-nav-width;
+			@include debug;
+		}
+
+		.mobile-app-nav-top {
+			top: 0;
+			height: $mobile-app-nav-top-height;
+		}
+
+		.mobile-app-nav-bottom {
+			bottom: 0;
+			height: $mobile-app-nav-bottom-height;
+		}
+
+		.mobile-app-nav-top ~ ul {
+			padding-top: $mobile-app-nav-top-height;
+		}
+
+		.mobile-app-nav-bottom ~ ul {
+			padding-bottom: $mobile-app-nav-bottom-height;
+		}
 	}
 }

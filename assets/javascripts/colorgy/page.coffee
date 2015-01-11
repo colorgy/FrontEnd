@@ -35,6 +35,7 @@ onDesktop = ->
 nullFunction = ->
   false
 
+window.disableTouch = false
 
 # -------------------------------------
 #   Base Layout
@@ -70,7 +71,7 @@ if $app.length
   siteNavHeight = $siteNav.height()
   appNavOffset = $appNav.offset()
 
-  # check if the page has a App Menu
+  # check if the page has a App Menu and forgot to add a class
   if $app.children('.app-menu')?.children()?.children()?.length
     $app.addClass 'has-app-menu'
 
@@ -95,7 +96,7 @@ if $app.length
   # Click Events
 
   $('.site-banner, .site-banner *').click ->
-    if onMobile()
+    if onMobile() and not window.disableTouch
       $('body').toggleClass('is-app-nav-active')
       $('body').removeClass('is-site-nav-active')
       false
@@ -103,7 +104,7 @@ if $app.length
       true
 
   $('.app-logo, .app-logo *').click ->
-    if onMobile()
+    if onMobile() and not window.disableTouch
       $('body').toggleClass('is-app-nav-active')
       $('body').removeClass('is-site-nav-active')
       false
@@ -115,12 +116,23 @@ if $app.length
       true
 
   $('.app-menu').click (e) ->
-    if onMobile() and (e.pageX < LOGO_WIDTH or e.pageX > WINDOW_WIDTH - LOGO_WIDTH )
+    if onMobile() and (e.pageX < LOGO_WIDTH or e.pageX > WINDOW_WIDTH - LOGO_WIDTH ) and not window.disableTouch
       $('body').toggleClass('is-app-nav-active')
       $('body').removeClass('is-site-nav-active')
       false
     else
       true
+
+  $('.site-nav-trigger').click ->
+    if onMobile() and not window.disableTouch
+      $('body').addClass('is-app-nav-active')
+      $('body').addClass('is-site-nav-active')
+      false
+
+  $('#app-nav a:not([href=#]), #site-nav a:not([href=#])').click ->
+    if onMobile() and not window.disableTouch
+      $('body').removeClass('is-app-nav-active')
+      $('body').removeClass('is-site-nav-active')
 
   # Touch Swipe Events
 
@@ -171,6 +183,10 @@ if $app.length
         if eventX > MOBILE_NAV_WIDTH
           $('body').removeClass('is-app-nav-active')
           $('body').removeClass('is-site-nav-active')
+          window.disableTouch = true
+          setTimeout ->
+            window.disableTouch = false
+          , 500
       if phase != 'move'
         $appNav.attr('style', '')
         $siteNav.attr('style', '')
@@ -213,6 +229,10 @@ if $app.length
         if eventX > MOBILE_NAV_WIDTH
           $('body').removeClass('is-app-nav-active')
           $('body').removeClass('is-site-nav-active')
+          window.disableTouch = true
+          setTimeout ->
+            window.disableTouch = false
+          , 500
       if phase != 'move'
         $siteNav.attr('style', '')
         $bodyDimmer.attr('style', '')

@@ -28,6 +28,7 @@
 				@include full-width-background($base-background-color);
 				@include span-columns(6);
 				@include omega;
+				position: relative;
 				@include position-sticky;
 				top: 0;
 				height: $app-menu-height;

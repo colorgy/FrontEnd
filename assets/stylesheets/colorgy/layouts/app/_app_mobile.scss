@@ -2,11 +2,44 @@
 //   Respond for Medium Screen Down
 // -------------------------------------
 
-$mobile-nav-width: 250px;
+$mobile-nav-width: 250px !default;
+$mobile-side-trigger-area-width: 20px !default;
 
 .l-app {
 
 	@include media($msd) {
+
+		.site-banner-app-nav-button {
+			display: block;
+			padding-top: ($app-menu-height - 20px) / 2;
+			cursor: pointer;
+
+			path {
+				@include transform(none);
+				@include transition-property(all);
+				@include transition-duration(.3s);
+				@include transition-delay(.3s);
+			}
+
+			body.is-app-nav-active & {
+
+				path {
+					@include transform(rotate(-45deg) translateX(-6px) translateY(3px));
+				}
+
+				path:first-child {
+					@include transform(rotate(45deg) translateX(2px) translateY(-2px));
+				}
+
+				path:last-child {
+					@include transform(rotate(-45deg) translateX(-6px) translateY(-2px));
+				}
+			}
+		}
+
+		.site-banner-user-menu {
+			display: none;
+		}
 
 		> .site-banner {
 			position: fixed;
@@ -124,7 +157,7 @@ $mobile-nav-width: 250px;
 		position: fixed;
 		top: 0;
 		left: 0;
-		width: 32px;
+		width: $mobile-side-trigger-area-width;
 		height: 100%;
 
 		body.is-app-nav-active & {
@@ -143,7 +176,7 @@ $mobile-nav-width: 250px;
 		height: 100%;
 
 		body.is-app-nav-active & {
-			width: 32px;
+			width: $mobile-side-trigger-area-width;
 		}
 
 		body.is-app-nav-active.is-site-nav-active & {

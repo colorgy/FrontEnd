@@ -10,6 +10,10 @@ $logo-width: 45px;
 
 .l-app {
 
+	.site-banner-app-nav-button {
+		display: none;
+	}
+
 	> .site-banner {
 		@include z-index-of(site-banner);
 		@include set-pad(0 12px);
