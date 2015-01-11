@@ -1,5 +1,10 @@
-$mobile-app-nav-top-height: 100px;
-$mobile-app-nav-bottom-height: 100px;
+$mobile-app-nav-top-height: 100px !default;
+$mobile-app-nav-bottom-height: 40px !default;
+
+$mobile-app-nav-item-active-background-color-bw: darken($base-background-color, 8%) !default;
+$mobile-app-nav-item-active-background-color: adjust-hue(saturate($mobile-app-nav-item-active-background-color-bw, 50), hue($primary-color)) !default;
+
+$mobile-app-nav-item-color: adjust-hue(saturate($base-dark-color, 100), hue($primary-color)) !default;
 
 .app-nav {
 	position: relative;
@@ -12,6 +17,11 @@ $mobile-app-nav-bottom-height: 100px;
 	li a {
 		display: block;
 		width: 100%;
+		font-weight: 800;
+	}
+
+	a {
+		color: $base-dark-color;
 	}
 
 	@include media($msd) {
@@ -19,45 +29,96 @@ $mobile-app-nav-bottom-height: 100px;
 		overflow: auto;
 		overflow-y: auto;
 		overflow-x: hidden;
+		-webkit-overflow-scrolling: touch;
 
-		ul {
-			min-height: 100%;
+		.wrapper {
+			@include z-index-of(app-nav-mobile-item);
+			position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
 		}
 
 		li {
 
-			a { padding: 8px 4px; }
-
 			&:first-child {
 				padding-top: 12px;
+			}
+
+			a {
+				padding: 8px 12px;
+				color: $mobile-app-nav-item-color;
+				font-weight: 400;
+			}
+
+			&.active a,
+			a:hover {
+				background-color: $mobile-app-nav-item-active-background-color;
 			}
 		}
 
 		.mobile-app-nav-top,
 		.mobile-app-nav-bottom {
+			@include z-index-of(app-nav-mobile-fixed-item);
 			display: block;
 			position: absolute;
 			right: 0;
 			width: $mobile-nav-width;
-			@include debug;
 		}
 
 		.mobile-app-nav-top {
 			top: 0;
 			height: $mobile-app-nav-top-height;
+			@include debug(black);
 		}
 
 		.mobile-app-nav-bottom {
+			@include display-flex;
 			bottom: 0;
 			height: $mobile-app-nav-bottom-height;
+			border-top: $base-border;
+			background-color: $base-background-color;
+			text-align: center;
+
+			a {
+				@include flex(1 auto);
+				display: inline-block;
+				height: 100%;
+				padding: 0 4px;
+				line-height: $mobile-app-nav-bottom-height;
+				border-right: $base-border;
+
+				&:only-child,
+				&:last-child {
+					border-right: none;
+				}
+
+				&:hover {
+					background-color: $mobile-app-nav-item-active-background-color;
+				}
+			}
 		}
 
-		.mobile-app-nav-top ~ ul {
+		.mobile-app-nav-top ~ ul:first-of-type,
+		.mobile-app-nav-top ~ .wrapper {
 			padding-top: $mobile-app-nav-top-height;
 		}
 
-		.mobile-app-nav-bottom ~ ul {
+		.mobile-app-nav-bottom ~ ul:last-of-type,
+		.mobile-app-nav-bottom ~ .wrapper {
 			padding-bottom: $mobile-app-nav-bottom-height;
+		}
+	}
+}
+
+#nav-mobile-moved-app-menu {
+	display: none;
+
+	@include media($msd) {
+
+		& {
+			display: block;
+			display: none; // TODO
 		}
 	}
 }

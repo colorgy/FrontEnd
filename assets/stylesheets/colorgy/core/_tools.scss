@@ -5,3 +5,10 @@
 .js-sticky {
 	// @include position-sticky;
 }
+
+.hide-on-mobile, .hom {
+
+	@include media($msd) {
+		display: none !important;
+	}
+}

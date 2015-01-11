@@ -2,23 +2,62 @@
     <section class="app has-app-menu">
       <h1 class="app-logo js-sticky"><a href="/" rel="home">Styleguide</a></h1>
       <nav class="app-menu js-sticky js-full-width-background" role="navigation" id="app-menu">
-        <ul>
-          <li>A</li>
-          <li>B</li>
-          <li>C</li>
-        </ul>
+            <ul>
+              <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#" class="btn">Link</a></li>
+              <li><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    Action <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul></li>
+              <li><input type="text" class="form-control" placeholder="Search"></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="right">
+              <li><a href="#">Link</a></li>
+              <li class="dropdown stay-on-mobile">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </li>
+            </ul>
       </nav>
       <nav class="app-nav js-sticky" role="navigation" id="app-nav">
-        <div class="mobile-app-nav-top"></div>
-        <%= partial "partials/_app_nav" %>
         <div class="mobile-app-nav-bottom">
-          <a class="site-nav-trigger" href="#">apps</a>
+          <a class="site-nav-trigger" href="#"><i class="glyphicon glyphicon-th"></i></a>
+          <a href="/"><i class="glyphicon glyphicon-home"></i></a>
+        </div>
+        <div class="wrapper">
+          <div class="mobile-app-nav-top"></div>
+          <%= partial "partials/_app_nav" %>
         </div>
       </nav>
       <nav class="site-nav js-sticky" role="navigation" id="site-nav">
         <%= partial "partials/_site_nav" %>
       </nav>
-      <main class="main" role="main">
+      <main class="main js-full-width-background" role="main">
 <%= yield %>
       </main>
     </section>

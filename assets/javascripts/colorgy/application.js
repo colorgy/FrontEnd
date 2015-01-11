@@ -6,3 +6,9 @@
 
 //= require ./page
 //= require ./polyfill
+
+$(document).on('ready page:load', function() {
+  setTimeout(function() {
+    $('.dropdown-toggle').dropdown();
+  }, 500);
+});

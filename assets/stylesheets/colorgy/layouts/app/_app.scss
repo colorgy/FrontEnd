@@ -30,6 +30,7 @@ $logo-width: 45px;
 		border-left: 12px solid transparent;
 
 		> .app-logo {
+			@extend %app-logo-block;
 			@include z-index-of(app-logo);
 			position: relative;
 			height: $app-menu-height;

@@ -74,6 +74,8 @@ if $app.length
   # check if the page has a App Menu and forgot to add a class
   if $app.children('.app-menu')?.children()?.children()?.length
     $app.addClass 'has-app-menu'
+  if $('#app-menu .stay-on-mobile')?.length
+    $app.addClass 'has-mobile-app-menu'
 
   # add touch trigger
   touchTrigger = document.getElementById('site-nav-touch-trigger')
@@ -173,7 +175,7 @@ if $app.length
           "transition-duration": "0"
           "opacity": "#{0.5 - 0.5*swipeRate}"
       else if phase == 'end'
-        if distance > 20 or duration < 100
+        if distance > 52 or duration < 120
           if direction == 'left'
             $('body').removeClass('is-app-nav-active')
           if direction == 'right'
@@ -219,7 +221,7 @@ if $app.length
           "-o-transform": "translateX(#{px}px)"
           "transform": "translateX(#{px}px)"
       else if phase == 'end'
-        if distance > 20 or duration < 100
+        if distance > 52 or duration < 120
           if direction == 'left'
             $('body').removeClass('is-site-nav-active')
           if direction == 'right'
@@ -281,7 +283,7 @@ if $app.length
           "opacity": "#{rate * 0.5}"
 
       else if phase == 'end'
-        if distance > 20 or duration < 100
+        if distance > 52 or duration < 120
           if direction == 'left'
             $('body').removeClass('is-site-nav-active')
           if direction == 'right'
@@ -328,21 +330,25 @@ if $app.length
     swipeStatus: appNavSwipe
     allowPageScroll: "vertical"
     threshold: 5
+    excludedElements: ''
 
   $appNav.swipe
     swipeStatus: appNavSwipe
     allowPageScroll: "vertical"
     threshold: 5
+    excludedElements: ''
 
   $siteNavTouchTrigger.swipe
     swipeStatus: siteNavSwipe
     allowPageScroll: "vertical"
     threshold: 5
+    excludedElements: ''
 
   $siteNav.swipe
     swipeStatus: siteNavSwipe
     allowPageScroll: "vertical"
     threshold: 5
+    excludedElements: ''
 
 
   # ----- Mobile Nav ----- #
@@ -352,6 +358,11 @@ if $app.length
       $('#body-dimmer').click ->
         $('body').removeClass('is-app-nav-active')
         $('body').removeClass('is-site-nav-active')
+      $mNavMenuItems = $('#app-menu > ul > li:not(.stay-on-mobile)')
+      if $mNavMenuItems.length
+        $("#nav-mobile-moved-app-menu").remove()
+        $appNav.prepend('<div id="nav-mobile-moved-app-menu" class="app-nav-app-menu"><ul></ul></div>')
+        $mNavMenuItems.clone().appendTo("#nav-mobile-moved-app-menu ul");
 
   setMobileNav()
 

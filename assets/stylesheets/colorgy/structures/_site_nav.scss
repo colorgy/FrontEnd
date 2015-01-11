@@ -3,6 +3,7 @@
 	ul {
 		overflow-y: scroll;
 		overflow-x: visible;
+		-webkit-overflow-scrolling: touch;
 		background-color: $primary-color;
 	}
 

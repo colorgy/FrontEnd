@@ -61,6 +61,11 @@ $mobile-side-trigger-area-width: 20px !default;
 			> .app-logo {
 				position: fixed;
 				padding-left: $logo-width;
+				color: $primary-color;
+
+				a {
+					color: $primary-color;
+				}
 			}
 
 			> .app-menu {
@@ -68,9 +73,8 @@ $mobile-side-trigger-area-width: 20px !default;
 				@include position-sticky;
 				display: none;
 				top: 0;
-				border-right: $logo-width solid transparent;
+				border-right: $logo-width*0.64 solid transparent;
 				border-left: $logo-width solid transparent;
-				@include debug;
 			}
 
 			> .main {
@@ -134,7 +138,7 @@ $mobile-side-trigger-area-width: 20px !default;
 			}
 		}
 
-		> .app.has-app-menu {
+		> .app.has-mobile-app-menu {
 
 			> .app-logo {
 				position: relative;
@@ -150,6 +154,15 @@ $mobile-side-trigger-area-width: 20px !default;
 }
 
 @include media($msd) {
+
+	.has-mobile-app-menu .main {
+		@include full-width-background(darken($base-background-color, 5%));
+
+		&::before {
+			height: $app-menu-height*2;
+			z-index: 0;
+		}
+	}
 
 	#app-nav-touch-trigger {
 		@include z-index-of(touch-trigger);

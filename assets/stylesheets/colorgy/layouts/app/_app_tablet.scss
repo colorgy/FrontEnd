@@ -9,7 +9,6 @@
 		> .app {
 
 			> .app-logo {
-				@extend %app-logo-block;
 				@include span-columns(2);
 				@include full-width-background($primary-color, right);
 				@include position-sticky;
@@ -32,6 +31,11 @@
 				@include position-sticky;
 				top: 0;
 				height: $app-menu-height;
+
+				&::before {
+					top: 0;
+					height: $app-menu-height;
+				}
 			}
 
 			> .app-nav,

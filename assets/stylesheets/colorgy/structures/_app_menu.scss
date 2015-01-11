@@ -1,0 +1,539 @@
+// @import "bootstrap/forms";
+
+$app-menu-line-height: 16px !default;
+$app-menu-btn-height: 34px !default;
+
+.app-menu {
+	position: relative;
+	font-size: 0;
+
+	> ul {
+		display: inline-block;
+		height: $app-menu-height;
+
+		> li {
+			display: block;
+			position: relative;
+			float: left;
+			height: $app-menu-height;
+			font-size: $app-menu-line-height;
+			pointer-events: auto;
+
+			> a:not(.btn) {
+				display: block;
+				padding: ($app-menu-height - $app-menu-line-height)/2 4px;
+				line-height: $app-menu-line-height;
+			}
+
+			> .btn,
+			> input {
+				margin: ($app-menu-height - $app-menu-btn-height)/2 4px;
+				height: $app-menu-btn-height;
+			}
+		}
+
+		&.right {
+			float: right;
+
+			> li {
+				float: right;
+			}
+
+			.dropdown-menu {
+				right: 0;
+				left: auto;
+			}
+		}
+	}
+
+
+
+	@include media($msd) {
+		// overflow: auto;
+		// overflow-x: auto;
+		// overflow-y: hidden;
+		// -webkit-overflow-scrolling: touch;
+		pointer-events: none;
+
+		> ul {
+			> li:not(.stay-on-mobile) {
+				display: none;
+			}
+		}
+	}
+
+
+
+}
+
+form {
+	display: none;
+}
+
+// $app-menu-default-bg: $base-background-color !default;
+// $app-menu-default-border: $base-border !default;
+// $app-menu-default-brand-color: $primary-color !default;
+// $app-menu-default-brand-hover-color: $primary-color !default;
+// $app-menu-default-brand-hover-bg: $primary-color !default;
+// $app-menu-default-color: $base-dark-color;
+// $app-menu-default-link-color: $base-link-color !default;
+// $app-menu-default-link-hover-color: $hover-link-color !default;
+// $app-menu-default-link-hover-bg: $base-background-color !default;
+// $app-menu-default-link-active-color: $primary-color !default;
+// $app-menu-default-link-active-bg: $primary-color !default;
+// $app-menu-default-link-disabled-color: $primary-color !default;
+// $app-menu-default-link-disabled-bg: $primary-color !default;
+// $app-menu-default-toggle-border-color: $primary-color !default;
+// $app-menu-default-toggle-hover-bg: $primary-color !default;
+// $app-menu-default-toggle-icon-bar-bg: $primary-color !default;
+// $app-menu-default-link-active-bg: $primary-color !default;
+// $app-menu-default-link-active-color: $primary-color !default;
+// $app-menu-default-link-color: $primary-color !default;
+// $app-menu-default-link-hover-color: $primary-color !default;
+// $app-menu-default-link-hover-bg: $primary-color !default;
+// $app-menu-default-link-active-color: $primary-color !default;
+// $app-menu-default-link-active-bg: $primary-color !default;
+// $app-menu-default-link-disabled-color: $primary-color !default;
+// $app-menu-default-link-disabled-bg: $primary-color !default;
+// $app-menu-default-link-color: $primary-color !default;
+// $app-menu-default-link-hover-color: $primary-color !default;
+// $app-menu-default-link-color: $primary-color !default;
+// $app-menu-default-link-hover-color: $primary-color !default;
+// $app-menu-default-link-disabled-color: $primary-color !default;
+// // .app-menu-fixed-top,
+// // .app-menu-fixed-bottom {
+// // 	.app-menu-collapse {
+// // 		// max-height: $app-menu-collapse-max-height;
+
+// // 		@media (max-device-width: $screen-xs-min) and (orientation: landscape) {
+// // 			max-height: 200px;
+// // 		}
+// // 	}
+// // }
+
+
+// // Both app-menu header and collapse
+// //
+// // When a container is present, change the behavior of the header and collapse.
+
+// .container,
+// .container-fluid {
+// 	> .app-menu-header,
+// 	> .app-menu-collapse {
+// 		// margin-right: -$app-menu-padding-horizontal;
+// 		// margin-left:  -$app-menu-padding-horizontal;
+
+// 		@media (min-width: $grid-float-breakpoint) {
+// 			margin-right: 0;
+// 			margin-left:  0;
+// 		}
+// 	}
+// }
+
+
+// //
+// // Navbar alignment options
+// //
+// // Display the app-menu across the entirety of the page or fixed it to the top or
+// // bottom of the page.
+
+// // Static top (unfixed, but 100% wide) app-menu
+// .app-menu-static-top {
+// 	// z-index: $zindex-app-menu;
+// 	border-width: 0 0 1px;
+
+// 	@media (min-width: $grid-float-breakpoint) {
+// 		border-radius: 0;
+// 	}
+// }
+
+// // Fix the top/bottom app-menus when screen real estate supports it
+// .app-menu-fixed-top,
+// .app-menu-fixed-bottom {
+// 	position: fixed;
+// 	right: 0;
+// 	left: 0;
+// 	// z-index: $zindex-app-menu-fixed;
+
+// 	// Undo the rounded corners
+// 	@media (min-width: $grid-float-breakpoint) {
+// 		border-radius: 0;
+// 	}
+// }
+// .app-menu-fixed-top {
+// 	top: 0;
+// 	border-width: 0 0 1px;
+// }
+// .app-menu-fixed-bottom {
+// 	bottom: 0;
+// 	margin-bottom: 0; // override .app-menu defaults
+// 	border-width: 1px 0 0;
+// }
+
+
+// // Brand/project name
+
+// .app-menu-brand {
+// 	float: left;
+// 	// padding: $app-menu-padding-vertical $app-menu-padding-horizontal;
+// 	font-size: $font-size-large;
+// 	line-height: $line-height-computed;
+// 	height: $app-menu-height;
+
+// 	&:hover,
+// 	&:focus {
+// 		text-decoration: none;
+// 	}
+
+// 	> img {
+// 		display: block;
+// 	}
+
+// 	@media (min-width: $grid-float-breakpoint) {
+// 		.app-menu > .container &,
+// 		.app-menu > .container-fluid & {
+// 			// margin-left: -$app-menu-padding-horizontal;
+// 		}
+// 	}
+// }
+
+
+// // Navbar toggle
+// //
+// // Custom button for toggling the `.app-menu-collapse`, powered by the collapse
+// // JavaScript plugin.
+
+// .app-menu-toggle {
+// 	position: relative;
+// 	float: right;
+// 	// margin-right: $app-menu-padding-horizontal;
+// 	padding: 9px 10px;
+// 	// @include app-menu-vertical-align(34px);
+// 	background-color: transparent;
+// 	background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+// 	border: 1px solid transparent;
+// 	border-radius: $border-radius-base;
+
+// 	// We remove the `outline` here, but later compensate by attaching `:hover`
+// 	// styles to `:focus`.
+// 	&:focus {
+// 		outline: 0;
+// 	}
+
+// 	// Bars
+// 	.icon-bar {
+// 		display: block;
+// 		width: 22px;
+// 		height: 2px;
+// 		border-radius: 1px;
+// 	}
+// 	.icon-bar + .icon-bar {
+// 		margin-top: 4px;
+// 	}
+
+// 	@media (min-width: $grid-float-breakpoint) {
+// 		display: none;
+// 	}
+// }
+
+
+// // Navbar nav links
+// //
+// // Builds on top of the `.nav` components with its own modifier class to make
+// // the nav the full height of the horizontal nav (above 768px).
+
+// .app-menu-nav {
+// 	// margin: ($app-menu-padding-vertical / 2) (-$app-menu-padding-horizontal);
+
+// 	> li > a {
+// 		padding-top:    10px;
+// 		padding-bottom: 10px;
+// 		line-height: $line-height-computed;
+// 	}
+
+// 	@media (max-width: $grid-float-breakpoint-max) {
+// 		// Dropdowns get custom display when collapsed
+// 		.open .dropdown-menu {
+// 			position: static;
+// 			float: none;
+// 			width: auto;
+// 			margin-top: 0;
+// 			background-color: transparent;
+// 			border: 0;
+// 			box-shadow: none;
+// 			> li > a,
+// 			.dropdown-header {
+// 				padding: 5px 15px 5px 25px;
+// 			}
+// 			> li > a {
+// 				line-height: $line-height-computed;
+// 				&:hover,
+// 				&:focus {
+// 					background-image: none;
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	// Uncollapse the nav
+// 	@media (min-width: $grid-float-breakpoint) {
+// 		float: left;
+// 		margin: 0;
+
+// 		> li {
+// 			float: left;
+// 			> a {
+// 				// padding-top:    $app-menu-padding-vertical;
+// 				// padding-bottom: $app-menu-padding-vertical;
+// 			}
+// 		}
+// 	}
+// }
+
+
+// // Navbar form
+// //
+// // Extension of the `.form-inline` with some extra flavor for optimum display in
+// // our app-menus.
+
+// .app-menu-form {
+// 	// margin-left: -$app-menu-padding-horizontal;
+// 	// margin-right: -$app-menu-padding-horizontal;
+// 	// padding: 10px $app-menu-padding-horizontal;
+// 	border-top: 1px solid transparent;
+// 	border-bottom: 1px solid transparent;
+// 	$shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.1);
+// 	@include box-shadow($shadow);
+
+// 	// Mixin behavior for optimum display
+// 	@include form-inline;
+
+// 	.form-group {
+// 		@media (max-width: $grid-float-breakpoint-max) {
+// 			margin-bottom: 5px;
+
+// 			&:last-child {
+// 				margin-bottom: 0;
+// 			}
+// 		}
+// 	}
+
+// 	// Vertically center in expanded, horizontal app-menu
+// 	// @include app-menu-vertical-align($input-height-base);
+
+// 	// Undo 100% width for pull classes
+// 	@media (min-width: $grid-float-breakpoint) {
+// 		width: auto;
+// 		border: 0;
+// 		margin-left: 0;
+// 		margin-right: 0;
+// 		padding-top: 0;
+// 		padding-bottom: 0;
+// 		@include box-shadow(none);
+// 	}
+// }
+
+
+// // Dropdown menus
+
+// // Menu position and menu carets
+// .app-menu-nav > li > .dropdown-menu {
+// 	margin-top: 0;
+// 	@include border-top-radius(0);
+// }
+// // Menu position and menu caret support for dropups via extra dropup class
+// .app-menu-fixed-bottom .app-menu-nav > li > .dropdown-menu {
+// 	// @include border-top-radius($app-menu-border-radius);
+// 	@include border-bottom-radius(0);
+// }
+
+
+// // Buttons in app-menus
+// //
+// // Vertically center a button within a app-menu (when *not* in a form).
+
+// .app-menu-btn {
+// 	// @include app-menu-vertical-align($input-height-base);
+
+// 	&.btn-sm {
+// 		// @include app-menu-vertical-align($input-height-small);
+// 	}
+// 	&.btn-xs {
+// 		// @include app-menu-vertical-align(22);
+// 	}
+// }
+
+
+// // Text in app-menus
+// //
+// // Add a class to make any element properly align itself vertically within the app-menus.
+
+// .app-menu-text {
+// 	// @include app-menu-vertical-align($line-height-computed);
+
+// 	@media (min-width: $grid-float-breakpoint) {
+// 		float: left;
+// 		// margin-left: $app-menu-padding-horizontal;
+// 		// margin-right: $app-menu-padding-horizontal;
+// 	}
+// }
+
+
+// // Component alignment
+// //
+// // Repurpose the pull utilities as their own app-menu utilities to avoid specificity
+// // issues with parents and chaining. Only do this when the app-menu is uncollapsed
+// // though so that app-menu contents properly stack and align in mobile.
+// //
+// // Declared after the app-menu components to ensure more specificity on the margins.
+
+// @media (min-width: $grid-float-breakpoint) {
+// 	.app-menu-left {
+// 		float: left !important;
+// 	}
+// 	.app-menu-right {
+// 		float: right !important;
+// 	// margin-right: -$app-menu-padding-horizontal;
+
+// 		~ .app-menu-right {
+// 			margin-right: 0;
+// 		}
+// 	}
+// }
+
+
+// // Alternate app-menus
+// // --------------------------------------------------
+
+// // Default app-menu
+// .app-menu-default {
+// 	background-color: $app-menu-default-bg;
+// 	border-color: $app-menu-default-border;
+
+// 	.app-menu-brand {
+// 		color: $app-menu-default-brand-color;
+// 		&:hover,
+// 		&:focus {
+// 			color: $app-menu-default-brand-hover-color;
+// 			background-color: $app-menu-default-brand-hover-bg;
+// 		}
+// 	}
+
+// 	.app-menu-text {
+// 		color: $app-menu-default-color;
+// 	}
+
+// 	.app-menu-nav {
+// 		> li > a {
+// 			color: $app-menu-default-link-color;
+
+// 			&:hover,
+// 			&:focus {
+// 				color: $app-menu-default-link-hover-color;
+// 				background-color: $app-menu-default-link-hover-bg;
+// 			}
+// 		}
+// 		> .active > a {
+// 			&,
+// 			&:hover,
+// 			&:focus {
+// 				color: $app-menu-default-link-active-color;
+// 				background-color: $app-menu-default-link-active-bg;
+// 			}
+// 		}
+// 		> .disabled > a {
+// 			&,
+// 			&:hover,
+// 			&:focus {
+// 				color: $app-menu-default-link-disabled-color;
+// 				background-color: $app-menu-default-link-disabled-bg;
+// 			}
+// 		}
+// 	}
+
+// 	.app-menu-toggle {
+// 		border-color: $app-menu-default-toggle-border-color;
+// 		&:hover,
+// 		&:focus {
+// 			background-color: $app-menu-default-toggle-hover-bg;
+// 		}
+// 		.icon-bar {
+// 			background-color: $app-menu-default-toggle-icon-bar-bg;
+// 		}
+// 	}
+
+// 	.app-menu-collapse,
+// 	.app-menu-form {
+// 		border-color: $app-menu-default-border;
+// 	}
+
+// 	// Dropdown menu items
+// 	.app-menu-nav {
+// 		// Remove background color from open dropdown
+// 		> .open > a {
+// 			&,
+// 			&:hover,
+// 			&:focus {
+// 				background-color: $app-menu-default-link-active-bg;
+// 				color: $app-menu-default-link-active-color;
+// 			}
+// 		}
+
+// 		@media (max-width: $grid-float-breakpoint-max) {
+// 			// Dropdowns get custom display when collapsed
+// 			.open .dropdown-menu {
+// 				> li > a {
+// 					color: $app-menu-default-link-color;
+// 					&:hover,
+// 					&:focus {
+// 						color: $app-menu-default-link-hover-color;
+// 						background-color: $app-menu-default-link-hover-bg;
+// 					}
+// 				}
+// 				> .active > a {
+// 					&,
+// 					&:hover,
+// 					&:focus {
+// 						color: $app-menu-default-link-active-color;
+// 						background-color: $app-menu-default-link-active-bg;
+// 					}
+// 				}
+// 				> .disabled > a {
+// 					&,
+// 					&:hover,
+// 					&:focus {
+// 						color: $app-menu-default-link-disabled-color;
+// 						background-color: $app-menu-default-link-disabled-bg;
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+
+
+// 	// Links in app-menus
+// 	//
+// 	// Add a class to ensure links outside the app-menu nav are colored correctly.
+
+// 	.app-menu-link {
+// 		color: $app-menu-default-link-color;
+// 		&:hover {
+// 			color: $app-menu-default-link-hover-color;
+// 		}
+// 	}
+
+// 	.btn-link {
+// 		color: $app-menu-default-link-color;
+// 		&:hover,
+// 		&:focus {
+// 			color: $app-menu-default-link-hover-color;
+// 		}
+// 		&[disabled],
+// 		fieldset[disabled] & {
+// 			&:hover,
+// 			&:focus {
+// 				color: $app-menu-default-link-disabled-color;
+// 			}
+// 		}
+// 	}
+// }
