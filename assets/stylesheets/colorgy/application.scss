@@ -28,26 +28,26 @@
 
 @import "core/helpers";
 @import "core/tools";
-@import "core/base/base";
+@import "core/base";
 @import "core/debug";
 
 // -------------------------------------
 //   Components
 // -------------------------------------
 
-@import "components/components";
+@import "components";
 
 // -------------------------------------
 //   Layouts
 // -------------------------------------
 
-@import "layouts/layouts";
+@import "layouts";
 
 // -------------------------------------
 //   Structures
 // -------------------------------------
 
-@import "structures/structures";
+@import "structures";
 
 // -------------------------------------
 //   Vendor

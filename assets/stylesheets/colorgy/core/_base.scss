@@ -1,0 +1,22 @@
+/* Bitters 0.10.0
+ * http://bitters.bourbon.io
+ * Copyright 2013–2014 thoughtbot, inc.
+ * MIT License */
+
+// Extends
+@import "base/extends/clearfix";
+@import "base/extends/button";
+@import "base/extends/errors";
+@import "base/extends/flashes";
+@import "base/extends/hide-text";
+
+// Typography and Elements
+@import "base/typography";
+@import "base/forms";
+@import "base/tables";
+@import "base/lists";
+
+#wrapper {
+	background-color: $body-background-color;
+	@include box-shadow(0 0 4px rgba(0,0,0, .4));
+}
